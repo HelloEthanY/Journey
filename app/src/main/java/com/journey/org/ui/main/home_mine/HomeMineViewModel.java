@@ -24,7 +24,8 @@ public class HomeMineViewModel extends BaseToolbarViewModel {
     // 初始化 toolbar
     public void initToolbar() {
         setToolbarTitle("我的");
-        setVisiableLeft(false);
+        setVisibleLeft(false);
+        setVisibleMenu(false);
     }
 
 

@@ -24,7 +24,7 @@ public class HomeViewPagerItemViewModel extends ItemViewModel<HomePageViewModel>
     }
 
     // item 的点击事件
-    public BindingCommand onClickItem = new BindingCommand(new BindingAction() {
+    public BindingCommand onClickItemCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
             viewModel.onClickBannerItemEvent.setValue(dataBean);

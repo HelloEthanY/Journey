@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@drawable/ic_corner_half_bg"
-        binding:onClickCommand="@{viewModel.onClickItem}">
+        binding:onClickCommand="@{viewModel.onClickItemCommand}">
         <!--景区图片-->
         <com.journey.org.ui.custom.UpperCornerImageView
             android:id="@+id/iv_icon"

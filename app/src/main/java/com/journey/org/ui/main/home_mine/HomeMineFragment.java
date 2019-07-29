@@ -46,9 +46,9 @@ public class HomeMineFragment extends BaseLazyFragment<FragmentHomeMineBinding, 
     public void initStatusBar() {
         super.initStatusBar();
         ConstraintLayout.LayoutParams layoutParams =
-                (ConstraintLayout.LayoutParams) binding.layoutStatusBar.getLayoutParams();
+                (ConstraintLayout.LayoutParams) binding.include.layoutStatusBar.getLayoutParams();
         layoutParams.height = SPUtils.getInstance().getInt("toolbarHeight");
-        binding.layoutStatusBar.setLayoutParams(layoutParams);
+        binding.include.layoutStatusBar.setLayoutParams(layoutParams);
     }
 
     @Override

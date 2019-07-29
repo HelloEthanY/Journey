@@ -12,6 +12,8 @@ import com.journey.org.R;
 import com.journey.org.app.base.BaseLazyFragment;
 import com.journey.org.data.home_page.HomePageBannerEntity;
 import com.journey.org.databinding.FragmentHomePageBinding;
+import com.journey.org.ui.main.home_page.page_detail.PageDetailFragment;
+import com.journey.org.ui.main.home_page.page_detail.PageDetailViewModel;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -25,7 +27,8 @@ public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, 
 
     @Override
     protected void lazyLoadData() {
-
+        // 请求banner 数据
+        viewModel.requestBannerData();
     }
 
     @Override
@@ -41,8 +44,6 @@ public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, 
     @Override
     public void initData() {
         super.initData();
-        // 请求banner 数据
-        viewModel.requestBannerData();
     }
 
     @Override
@@ -62,7 +63,10 @@ public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, 
         viewModel.onClickItemEvent.observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                // startActivity(ScenicMapActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", s);
+                bundle.putString("name", "黄果树瀑布");
+                startContainerActivity(PageDetailFragment.class.getCanonicalName(), bundle);
             }
         });
 

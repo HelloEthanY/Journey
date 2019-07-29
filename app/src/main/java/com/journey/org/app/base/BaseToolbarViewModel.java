@@ -29,24 +29,40 @@ public class BaseToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> 
         super(application, model);
         toolbarViewModel = this;
     }
+
     // 是否展示返回按钮
     public ObservableBoolean onShowFinish = new ObservableBoolean(true);
+    // 是否展示菜单按钮
+    public ObservableBoolean onShowMenu = new ObservableBoolean(true);
     // toolbar 标题
     public ObservableField<String> toolbarTitle = new ObservableField<>();
-
+    // 点击结束按钮
     public BindingCommand onClickFinishCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
             finish();
         }
     });
+    //点击菜单
+    public BindingCommand onClickMenuCommand = new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
 
-    public void setToolbarTitle(String title){
+        }
+    });
+
+    // 设置toolbar 的内容
+    public void setToolbarTitle(String title) {
         toolbarTitle.set(title);
     }
 
-    public void setVisiableLeft(boolean isShow){
+    // 设置是否展示返回按钮
+    public void setVisibleLeft(boolean isShow) {
         onShowFinish.set(isShow);
     }
 
+    // 设置是否展示菜单
+    public void setVisibleMenu(boolean isShow) {
+        onShowMenu.set(isShow);
+    }
 }
