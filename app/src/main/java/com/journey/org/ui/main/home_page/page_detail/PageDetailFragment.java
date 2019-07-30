@@ -59,5 +59,6 @@ public class PageDetailFragment extends BaseFragment<FragmentPageDetailBinding, 
     public void initData() {
         super.initData();
         viewModel.initToolbar(scenicName);
+        viewModel.loadData();
     }
 }
