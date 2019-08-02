@@ -11,8 +11,15 @@ import me.goldze.mvvmhabit.base.ItemViewModel;
  * @author 逍遥
  * @Date 2019/7/30
  */
-public class HeadInfoItemViewModel extends ItemViewModel {
-    public HeadInfoItemViewModel(@NonNull BaseViewModel viewModel) {
+public class HeadInfoItemViewModel extends ItemViewModel<PageDetailViewModel> {
+    // 名称
+    public String name;
+    // 内容
+    public String nameContent;
+
+    public HeadInfoItemViewModel(@NonNull PageDetailViewModel viewModel, String name, String nameContent) {
         super(viewModel);
+        this.name = name;
+        this.nameContent = nameContent;
     }
 }

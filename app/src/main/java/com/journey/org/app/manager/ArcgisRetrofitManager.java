@@ -112,9 +112,12 @@ public class ArcgisRetrofitManager {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+
                 .baseUrl(url)
                 .build();
     }
+
+
 
     /**
      * create you ApiService

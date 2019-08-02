@@ -10,4 +10,8 @@ public class Config {
 
     /***************************************玩Android baseUrl ************************************/
     public static final String PLAY_ANDROID_BASE_URL = "https://www.wanandroid.com/";
+    // 网易
+    public static final String WANGYI_BASE_URL = "http://baobab.kaiyanapp.com/";
+
+
 }

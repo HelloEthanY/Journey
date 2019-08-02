@@ -9,6 +9,7 @@ import me.goldze.mvvmhabit.base.BaseModel;
 import me.goldze.mvvmhabit.base.BaseViewModel;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
+import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
 
 /**
  * toolbar
@@ -30,6 +31,8 @@ public class BaseToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> 
         toolbarViewModel = this;
     }
 
+    // 菜单按钮点击事件回调
+    public SingleLiveEvent<Void> onClickMenuEvent = new SingleLiveEvent<>();
     // 是否展示返回按钮
     public ObservableBoolean onShowFinish = new ObservableBoolean(true);
     // 是否展示菜单按钮
@@ -47,7 +50,7 @@ public class BaseToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> 
     public BindingCommand onClickMenuCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-
+            onClickMenuEvent.call();
         }
     });
 

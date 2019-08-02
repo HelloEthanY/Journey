@@ -34,40 +34,40 @@ public class PlayerManager {
     /**
      * 可能会剪裁,保持原视频的大小，显示在中心,当原视频的大小超过view的大小超过部分裁剪处理
      */
-    public static final String SCALETYPE_FITPARENT="fitParent";
+    public static final String SCALETYPE_FITPARENT = "fitParent";
     /**
      * 可能会剪裁,等比例放大视频，直到填满View为止,超过View的部分作裁剪处理
      */
-    public static final String SCALETYPE_FILLPARENT="fillParent";
+    public static final String SCALETYPE_FILLPARENT = "fillParent";
     /**
      * 将视频的内容完整居中显示，如果视频大于view,则按比例缩视频直到完全显示在view中
      */
-    public static final String SCALETYPE_WRAPCONTENT="wrapContent";
+    public static final String SCALETYPE_WRAPCONTENT = "wrapContent";
     /**
      * 不剪裁,非等比例拉伸画面填满整个View
      */
-    public static final String SCALETYPE_FITXY="fitXY";
+    public static final String SCALETYPE_FITXY = "fitXY";
     /**
      * 不剪裁,非等比例拉伸画面到16:9,并完全显示在View中
      */
-    public static final String SCALETYPE_16_9="16:9";
+    public static final String SCALETYPE_16_9 = "16:9";
     /**
      * 不剪裁,非等比例拉伸画面到4:3,并完全显示在View中
      */
-    public static final String SCALETYPE_4_3="4:3";
+    public static final String SCALETYPE_4_3 = "4:3";
 
     /**
      * 状态常量
      */
-    private final int STATUS_ERROR=-1;
-    private final int STATUS_IDLE=0;
-    private final int STATUS_LOADING=1;
-    private final int STATUS_PLAYING=2;
-    private final int STATUS_PAUSE=3;
-    private final int STATUS_COMPLETED=4;
+    private final int STATUS_ERROR = -1;
+    private final int STATUS_IDLE = 0;
+    private final int STATUS_LOADING = 1;
+    private final int STATUS_PLAYING = 2;
+    private final int STATUS_PAUSE = 3;
+    private final int STATUS_COMPLETED = 4;
 
     private final Activity activity;
-    private final IjkVideoView videoView;
+    private IjkVideoView videoView;
     private final AudioManager audioManager;
     public GestureDetector gestureDetector;
 
@@ -79,14 +79,14 @@ public class PlayerManager {
     private final int mMaxVolume;
     private int screenWidthPixels;
     private int currentPosition;
-    private int status=STATUS_IDLE;
+    private int status = STATUS_IDLE;
     private long pauseTime;
     private String url;
 
-    private float brightness=-1;
-    private int volume=-1;
+    private float brightness = -1;
+    private int volume = -1;
     private long newPosition = -1;
-    private long defaultRetryTime=5000;
+    private long defaultRetryTime = 5000;
 
     private OrientationEventListener orientationEventListener;
     private PlayerStateListener playerStateListener;
@@ -95,25 +95,25 @@ public class PlayerManager {
         this.playerStateListener = playerStateListener;
     }
 
-    private OnErrorListener onErrorListener=new OnErrorListener() {
+    private OnErrorListener onErrorListener = new OnErrorListener() {
         @Override
         public void onError(int what, int extra) {
         }
     };
 
-    private OnCompleteListener onCompleteListener=new OnCompleteListener() {
+    private OnCompleteListener onCompleteListener = new OnCompleteListener() {
         @Override
         public void onComplete() {
         }
     };
 
-    private OnInfoListener onInfoListener=new OnInfoListener(){
+    private OnInfoListener onInfoListener = new OnInfoListener() {
         @Override
         public void onInfo(int what, int extra) {
 
         }
     };
-    private OnControlPanelVisibilityChangeListener onControlPanelVisibilityChangeListener=new OnControlPanelVisibilityChangeListener() {
+    private OnControlPanelVisibilityChangeListener onControlPanelVisibilityChangeListener = new OnControlPanelVisibilityChangeListener() {
         @Override
         public void change(boolean isShowing) {
         }
@@ -121,24 +121,28 @@ public class PlayerManager {
 
     /**
      * try to play when error(only for live video)
+     *
      * @param defaultRetryTime millisecond,0 will stop retry,default is 5000 millisecond
      */
     public void setDefaultRetryTime(long defaultRetryTime) {
         this.defaultRetryTime = defaultRetryTime;
     }
 
-    public PlayerManager(final Activity activity) {
+    public PlayerManager(final Activity activity, final IjkVideoView ijkVideoView) {
         try {
             IjkMediaPlayer.loadLibrariesOnce(null);
             IjkMediaPlayer.native_profileBegin("libijkplayer.so");
-            playerSupport=true;
+            playerSupport = true;
         } catch (Throwable e) {
             Log.e("GiraffePlayer", "loadLibraries error", e);
         }
-        this.activity=activity;
+        this.activity = activity;
         screenWidthPixels = activity.getResources().getDisplayMetrics().widthPixels;
 
-        videoView =  activity.findViewById(R.id.video_view);
+     /*   videoView = activity.findViewById(R.id.video_view);
+        if (videoView == null) {*/
+        this.videoView = ijkVideoView;
+        // }
         videoView.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(IMediaPlayer mp) {
@@ -150,7 +154,7 @@ public class PlayerManager {
             @Override
             public boolean onError(IMediaPlayer mp, int what, int extra) {
                 statusChange(STATUS_ERROR);
-                onErrorListener.onError(what,extra);
+                onErrorListener.onError(what, extra);
                 return true;
             }
         });
@@ -172,7 +176,7 @@ public class PlayerManager {
                         statusChange(STATUS_PLAYING);
                         break;
                 }
-                onInfoListener.onInfo(what,extra);
+                onInfoListener.onInfo(what, extra);
                 return false;
             }
         });
@@ -184,42 +188,42 @@ public class PlayerManager {
         if (fullScreenOnly) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
-        portrait=getScreenOrientation()== ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        portrait = getScreenOrientation() == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
         if (!playerSupport) {
-            DebugLog.e("","播放器不支持此设备");
+            DebugLog.e("", "播放器不支持此设备");
         }
     }
 
     private void statusChange(int newStatus) {
         status = newStatus;
-        if (!isLive && newStatus==STATUS_COMPLETED) {
-            DebugLog.d("","statusChange STATUS_COMPLETED...");
-            if (playerStateListener != null){
+        if (!isLive && newStatus == STATUS_COMPLETED) {
+            DebugLog.d("", "statusChange STATUS_COMPLETED...");
+            if (playerStateListener != null) {
                 playerStateListener.onComplete();
             }
-        }else if (newStatus == STATUS_ERROR) {
-            DebugLog.d("","statusChange STATUS_ERROR...");
-            if (playerStateListener != null){
+        } else if (newStatus == STATUS_ERROR) {
+            DebugLog.d("", "statusChange STATUS_ERROR...");
+            if (playerStateListener != null) {
                 playerStateListener.onError();
             }
-        } else if(newStatus==STATUS_LOADING){
+        } else if (newStatus == STATUS_LOADING) {
 //            $.id(R.id.app_video_loading).visible();
-            if (playerStateListener != null){
+            if (playerStateListener != null) {
                 playerStateListener.onLoading();
             }
-            DebugLog.d("","statusChange STATUS_LOADING...");
+            DebugLog.d("", "statusChange STATUS_LOADING...");
         } else if (newStatus == STATUS_PLAYING) {
-            DebugLog.d("","statusChange STATUS_PLAYING...");
-            if (playerStateListener != null){
+            DebugLog.d("", "statusChange STATUS_PLAYING...");
+            if (playerStateListener != null) {
                 playerStateListener.onPlay();
             }
         }
     }
 
     public void onPause() {
-        pauseTime= System.currentTimeMillis();
-        if (status==STATUS_PLAYING) {
+        pauseTime = System.currentTimeMillis();
+        if (status == STATUS_PLAYING) {
             videoView.pause();
             if (!isLive) {
                 currentPosition = videoView.getCurrentPosition();
@@ -228,12 +232,12 @@ public class PlayerManager {
     }
 
     public void onResume() {
-        pauseTime=0;
-        if (status==STATUS_PLAYING) {
+        pauseTime = 0;
+        if (status == STATUS_PLAYING) {
             if (isLive) {
                 videoView.seekTo(0);
             } else {
-                if (currentPosition>0) {
+                if (currentPosition > 0) {
                     videoView.seekTo(currentPosition);
                 }
             }
@@ -328,7 +332,7 @@ public class PlayerManager {
         int index = (int) (percent * mMaxVolume) + volume;
         if (index > mMaxVolume) {
             index = mMaxVolume;
-        } else if (index < 0){
+        } else if (index < 0) {
             index = 0;
         }
         // 变更声音
@@ -339,7 +343,7 @@ public class PlayerManager {
         if (i == 0) {
             s = "off";
         }
-        DebugLog.d("","onVolumeSlide:"+s);
+        DebugLog.d("", "onVolumeSlide:" + s);
     }
 
     private void onProgressSlide(float percent) {
@@ -352,13 +356,13 @@ public class PlayerManager {
         if (newPosition > duration) {
             newPosition = duration;
         } else if (newPosition <= 0) {
-            newPosition=0;
-            delta=-position;
+            newPosition = 0;
+            delta = -position;
         }
         int showDelta = (int) delta / 1000;
         if (showDelta != 0) {
             String text = showDelta > 0 ? ("+" + showDelta) : "" + showDelta;
-            DebugLog.d("","onProgressSlide:" + text);
+            DebugLog.d("", "onProgressSlide:" + text);
         }
     }
 
@@ -370,18 +374,18 @@ public class PlayerManager {
     private void onBrightnessSlide(float percent) {
         if (brightness < 0) {
             brightness = activity.getWindow().getAttributes().screenBrightness;
-            if (brightness <= 0.00f){
+            if (brightness <= 0.00f) {
                 brightness = 0.50f;
-            }else if (brightness < 0.01f){
+            } else if (brightness < 0.01f) {
                 brightness = 0.01f;
             }
         }
-        DebugLog.d("","brightness:"+brightness+",percent:"+ percent);
+        DebugLog.d("", "brightness:" + brightness + ",percent:" + percent);
         WindowManager.LayoutParams lpa = activity.getWindow().getAttributes();
         lpa.screenBrightness = brightness + percent;
-        if (lpa.screenBrightness > 1.0f){
+        if (lpa.screenBrightness > 1.0f) {
             lpa.screenBrightness = 1.0f;
-        }else if (lpa.screenBrightness < 0.01f){
+        } else if (lpa.screenBrightness < 0.01f) {
             lpa.screenBrightness = 0.01f;
         }
         activity.getWindow().setAttributes(lpa);
@@ -435,20 +439,21 @@ public class PlayerManager {
      *     16:9:不剪裁,非等比例拉伸画面到16:9,并完全显示在View中
      *     4:3:不剪裁,非等比例拉伸画面到4:3,并完全显示在View中
      * </pre>
+     *
      * @param scaleType
      */
     public void setScaleType(String scaleType) {
         if (SCALETYPE_FITPARENT.equals(scaleType)) {
             videoView.setAspectRatio(IRenderView.AR_ASPECT_FIT_PARENT);
-        }else if (SCALETYPE_FILLPARENT.equals(scaleType)) {
+        } else if (SCALETYPE_FILLPARENT.equals(scaleType)) {
             videoView.setAspectRatio(IRenderView.AR_ASPECT_FILL_PARENT);
-        }else if (SCALETYPE_WRAPCONTENT.equals(scaleType)) {
+        } else if (SCALETYPE_WRAPCONTENT.equals(scaleType)) {
             videoView.setAspectRatio(IRenderView.AR_ASPECT_WRAP_CONTENT);
-        }else if (SCALETYPE_FITXY.equals(scaleType)) {
+        } else if (SCALETYPE_FITXY.equals(scaleType)) {
             videoView.setAspectRatio(IRenderView.AR_MATCH_PARENT);
-        }else if (SCALETYPE_16_9.equals(scaleType)) {
+        } else if (SCALETYPE_16_9.equals(scaleType)) {
             videoView.setAspectRatio(IRenderView.AR_16_9_FIT_PARENT);
-        }else if (SCALETYPE_4_3.equals(scaleType)) {
+        } else if (SCALETYPE_4_3.equals(scaleType)) {
             videoView.setAspectRatio(IRenderView.AR_4_3_FIT_PARENT);
         }
     }
@@ -474,7 +479,7 @@ public class PlayerManager {
         private View view;
 
         public Query(Activity activity) {
-            this.activity=activity;
+            this.activity = activity;
         }
 
         public Query id(int id) {
@@ -518,7 +523,7 @@ public class PlayerManager {
         }
 
         public Query text(CharSequence text) {
-            if (view!=null && view instanceof TextView) {
+            if (view != null && view instanceof TextView) {
                 ((TextView) view).setText(text);
             }
             return this;
@@ -531,15 +536,15 @@ public class PlayerManager {
             return this;
         }
 
-        private void size(boolean width, int n, boolean dip){
-            if(view != null){
+        private void size(boolean width, int n, boolean dip) {
+            if (view != null) {
                 ViewGroup.LayoutParams lp = view.getLayoutParams();
-                if(n > 0 && dip){
+                if (n > 0 && dip) {
                     n = dip2pixel(activity, n);
                 }
-                if(width){
+                if (width) {
                     lp.width = n;
-                }else{
+                } else {
                     lp.height = n;
                 }
                 view.setLayoutParams(lp);
@@ -547,15 +552,15 @@ public class PlayerManager {
         }
 
         public void height(int height, boolean dip) {
-            size(false,height,dip);
+            size(false, height, dip);
         }
 
-        public int dip2pixel(Context context, float n){
+        public int dip2pixel(Context context, float n) {
             int value = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, n, context.getResources().getDisplayMetrics());
             return value;
         }
 
-        public float pixel2dip(Context context, float n){
+        public float pixel2dip(Context context, float n) {
             Resources resources = context.getResources();
             DisplayMetrics metrics = resources.getDisplayMetrics();
             float dp = n / (metrics.densityDpi / 160f);
@@ -593,7 +598,7 @@ public class PlayerManager {
             float deltaX = mOldX - e2.getX();
             if (firstTouch) {
                 toSeek = Math.abs(distanceX) >= Math.abs(distanceY);
-                volumeControl=mOldX > screenWidthPixels * 0.5f;
+                volumeControl = mOldX > screenWidthPixels * 0.5f;
                 firstTouch = false;
             }
 
@@ -621,6 +626,7 @@ public class PlayerManager {
 
     /**
      * is player support this device
+     *
      * @return
      */
     public boolean isPlayerSupport() {
@@ -629,22 +635,23 @@ public class PlayerManager {
 
     /**
      * 是否正在播放
+     *
      * @return
      */
     public boolean isPlaying() {
-        return videoView!=null?videoView.isPlaying():false;
+        return videoView != null ? videoView.isPlaying() : false;
     }
 
-    public void stop(){
+    public void stop() {
         videoView.stopPlayback();
     }
 
-    public int getCurrentPosition(){
+    public int getCurrentPosition() {
         return videoView.getCurrentPosition();
     }
 
-    public IjkVideoView getVideoView(){
-        if (videoView != null){
+    public IjkVideoView getVideoView() {
+        if (videoView != null) {
             return videoView;
         }
         return null;
@@ -652,13 +659,14 @@ public class PlayerManager {
 
     /**
      * get video duration
+     *
      * @return
      */
-    public int getDuration(){
+    public int getDuration() {
         return videoView.getDuration();
     }
 
-    public PlayerManager playInFullScreen(boolean fullScreen){
+    public PlayerManager playInFullScreen(boolean fullScreen) {
         if (fullScreen) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
@@ -680,13 +688,14 @@ public class PlayerManager {
         return this;
     }
 
-    public PlayerManager onControlPanelVisibilityChange(OnControlPanelVisibilityChangeListener listener){
+    public PlayerManager onControlPanelVisibilityChange(OnControlPanelVisibilityChangeListener listener) {
         this.onControlPanelVisibilityChangeListener = listener;
         return this;
     }
 
     /**
      * set is live (can't seek forward)
+     *
      * @param isLive
      * @return
      */
@@ -695,33 +704,36 @@ public class PlayerManager {
         return this;
     }
 
-    public PlayerManager toggleAspectRatio(){
+    public PlayerManager toggleAspectRatio() {
         if (videoView != null) {
             videoView.toggleAspectRatio();
         }
         return this;
     }
 
-    public interface PlayerStateListener{
+    public interface PlayerStateListener {
         void onComplete();
+
         void onError();
+
         void onLoading();
+
         void onPlay();
     }
 
-    public interface OnErrorListener{
+    public interface OnErrorListener {
         void onError(int what, int extra);
     }
 
-    public interface OnCompleteListener{
+    public interface OnCompleteListener {
         void onComplete();
     }
 
-    public interface OnControlPanelVisibilityChangeListener{
+    public interface OnControlPanelVisibilityChangeListener {
         void change(boolean isShowing);
     }
 
-    public interface OnInfoListener{
+    public interface OnInfoListener {
         void onInfo(int what, int extra);
     }
 }

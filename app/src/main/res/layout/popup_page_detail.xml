@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+        <variable
+            name="adapter"
+            type="me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.journey.org.ui.custom.popup.page_detail.PageDetailPopupWindowViewModel" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/more_pormpt_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            binding:adapter="@{adapter}"
+            binding:itemBinding="@{viewModel.itemBinding}"
+            binding:items="@{viewModel.items}"
+            binding:layoutManager="@{LayoutManagers.linear()}">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
+

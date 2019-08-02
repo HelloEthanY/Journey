@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.journey.org.BR;
 import com.journey.org.R;
+import com.journey.org.data.home_page.PageDetailBodyEntity;
 
 import me.goldze.mvvmhabit.base.BaseViewModel;
 import me.goldze.mvvmhabit.base.MultiItemViewModel;
@@ -19,9 +20,12 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  */
 public class PageDetailItemBodyViewModel extends MultiItemViewModel<PageDetailViewModel> {
 
-    public PageDetailItemBodyViewModel(@NonNull PageDetailViewModel viewModel) {
+    public PageDetailBodyEntity entity;
+
+    public PageDetailItemBodyViewModel(@NonNull PageDetailViewModel viewModel, PageDetailBodyEntity entity) {
         super(viewModel);
-        loadData();
+        this.entity = entity;
+        loadData(entity);
     }
 
     public ItemBinding<BodyInfoItemViewModel> infoItemBinding = ItemBinding.of(BR.viewModel, R.layout.item_page_body_info);
@@ -29,9 +33,9 @@ public class PageDetailItemBodyViewModel extends MultiItemViewModel<PageDetailVi
     public ObservableList<BodyInfoItemViewModel> infoItems = new ObservableArrayList<>();
 
     // 加载数据
-    public void loadData() {
-        for (int i = 0; i < 3; i++) {
-            infoItems.add(new BodyInfoItemViewModel(viewModel));
+    public void loadData(PageDetailBodyEntity entity) {
+        for (PageDetailBodyEntity.BodyBean bean : entity.getBodyBeans()) {
+            infoItems.add(new BodyInfoItemViewModel(viewModel, bean));
         }
     }
 

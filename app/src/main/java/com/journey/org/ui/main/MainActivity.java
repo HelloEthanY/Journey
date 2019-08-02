@@ -82,10 +82,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
      */
     private void initBottomTab() {
         PageNavigationView.MaterialBuilder item = binding.mainTab.material();
-        item.addItem(R.mipmap.ic_launcher, getString(R.string.home_page));
+        item.addItem(R.mipmap.ic_home_page, getString(R.string.home_page));
         // item.addItem(R.mipmap.ic_home_work, getString(R.string.home_office));
         // item.addItem(R.mipmap.ic_launcher, getString(R.string.home_land));
-        item.addItem(R.mipmap.ic_launcher, getString(R.string.home_mine));
+        item.addItem(R.mipmap.ic_home_mine, getString(R.string.home_mine));
 
         item.setDefaultColor(ContextCompat.getColor(this, R.color.color8AGrey));
         navigationController = item.build();

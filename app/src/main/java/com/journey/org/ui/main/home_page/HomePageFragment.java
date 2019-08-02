@@ -65,7 +65,7 @@ public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, 
             public void onChanged(@Nullable String s) {
                 Bundle bundle = new Bundle();
                 bundle.putString("id", s);
-                bundle.putString("name", "黄果树瀑布");
+                bundle.putString("name", "西江千户苗寨");
                 startContainerActivity(PageDetailFragment.class.getCanonicalName(), bundle);
             }
         });
@@ -78,6 +78,4 @@ public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, 
             }
         });
     }
-
-
 }

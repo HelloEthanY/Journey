@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.journey.org.ui.main.home_page.page_detail.BodyInfoItemViewModel" />
@@ -19,18 +21,20 @@
             android:id="@+id/iv_icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="地理气候"
+            android:text="@{viewModel.bodyBean.bodyTitle}"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            android:visibility="@{viewModel.isVisibility?View.GONE:View.VISIBLE}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:padding="2dp"
-            android:text="西江千户苗寨所在地形为典型河流谷地，清澈见底的白水河穿寨而过，苗寨的主体位于河流东北侧的河谷坡地上。千百年来，西江苗族同胞在这里日出而耕，日落而息，在苗寨上游地区开辟出大片的梯田，形成了农耕文化与田园风光。"
+            android:text="@{viewModel.bodyBean.bodyContent}"
             android:textColor="@color/color8AGrey"
             android:textSize="12sp"
             android:textStyle="bold"

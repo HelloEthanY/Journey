@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,16 +13,18 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="80dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        binding:onClickCommand="@{viewModel.onClickVideoItemCommand}">
 
         <ImageView
             android:id="@+id/iv_icon"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher"
+            android:layout_margin="3dp"
             app:layout_constraintHorizontal_weight="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintWidth_percent=".3" />
+            app:layout_constraintWidth_percent=".3"
+            binding:url="@{viewModel.bean.data.cover.feed}" />
 
         <TextView
             android:layout_width="0dp"
@@ -29,7 +32,7 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="2"
-            android:text="一分钟带你游遍西江风进去"
+            android:text="@{viewModel.bean.data.title}"
             android:textColor="@color/colorWhite"
             android:textSize="12sp"
             app:layout_constraintLeft_toRightOf="@+id/iv_icon"

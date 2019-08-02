@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.journey.org.ui.custom.popup.page_detail.PageDetailPopupWindowItemViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout_item_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        binding:isThrottleFirst="@{Boolean.TRUE}"
+        binding:onClickCommand="@{viewModel.onClickItemCommand}">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="7dp"
+            android:src="@{viewModel.entity.drawable}"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.entity.title}"
+            android:textColor="@color/color70Grey"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/iv_icon"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
+

@@ -72,18 +72,37 @@ super.onCreate(savedInstanceState); 之前设置     getWindow().setBackgroundDr
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">5dp</item>
     </style>
-
-    <!--关于周围设施TextView 样式-->
-    <style name="SurroundTextViewTileStyle">
+    <!--关于景区详情样式-->
+    <!--景区详情大标题TextView 样式-->
+    <style name="PageDetailTextViewTileStyle">
         <item name="android:maxLines">1</item>
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:layout_marginEnd">5dp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/color5DGrey</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
+    <!--大标题左边的View 的样式-->
+    <style name="PageDetailViewLineStyle">
+        <item name="android:layout_width">@dimen/scenic_view_title_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+    <!--toolbarMenu-->
+    <style name="toolbarMenu" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <!--把该属性改为false即可使menu位置位于toolbar之下-->
+        <item name="overlapAnchor">false</item>
+        <!--背景色-->
+        <item name="android:colorBackground">@android:color/white</item>
+        <!--文字颜色-->
+        <item name="android:textColor">#707070</item>
+        <!--溢出菜单宽度-->
+        <item name="android:dropDownWidth">wrap_content</item>
+        <!--溢出菜单高度-->
+        <item name="android:dropDownHeight">wrap_content</item>
+    </style>
+
 </resources>

@@ -30,21 +30,12 @@
 
             <View
                 android:id="@+id/view_title"
-                android:layout_width="20dp"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                style="@style/PageDetailViewLineStyle"
                 app:layout_constraintLeft_toLeftOf="parent" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@color/color5DGrey"
-                android:gravity="center_vertical"
-                android:paddingStart="5dp"
-                android:text="景区简介"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                style="@style/PageDetailTextViewTileStyle"
+                android:text="@{viewModel.entity.title}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/view_title"
                 app:layout_constraintRight_toRightOf="parent"
