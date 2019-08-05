@@ -21,6 +21,7 @@ import com.journey.org.databinding.FragmentPageDetailBinding;
 import com.journey.org.ui.custom.popup.PopupWindowFactory;
 import com.journey.org.ui.custom.popup.page_detail.PageDetailPopupWindow;
 import com.journey.org.ui.main.home_page.page_map.PageMapActivity;
+import com.journey.org.ui.main.home_page.page_photo.PagePhotoFragment;
 
 import me.goldze.mvvmhabit.base.BaseFragment;
 import me.goldze.mvvmhabit.utils.ToastUtils;
@@ -180,7 +181,7 @@ public class PageDetailFragment extends BaseFragment<FragmentPageDetailBinding, 
         viewModel.onClickScenicImgEvent.observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void aVoid) {
-                ToastUtils.showShort("景区图片集合");
+                startContainerActivity(PagePhotoFragment.class.getCanonicalName());
             }
         });
         // 地理位置点击事件
@@ -188,7 +189,10 @@ public class PageDetailFragment extends BaseFragment<FragmentPageDetailBinding, 
             @Override
             public void onChanged(@Nullable Void bean) {
                 ToastUtils.showShort("地理位置");
-                startActivity(PageMapActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putDouble("longitude", 26.499389873224153);
+                bundle.putDouble("latitude", 108.17915965086003);
+                startActivity(PageMapActivity.class, bundle);
             }
         });
         // 视频地址回调
@@ -199,9 +203,7 @@ public class PageDetailFragment extends BaseFragment<FragmentPageDetailBinding, 
                     binding.videoView.setVideoURI(Uri.parse(bean.getData().getPlayUrl()));
             }
         });
-
         /*******************************************体布局**************************************/
-
 
     }
 

@@ -41,11 +41,17 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote">
 
+        </service>
+        <!--主页-->
         <activity
+            android:launchMode="singleTop"
             android:name=".ui.main.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
+        <!--splash界面-->
         <activity
             android:name=".ui.splash.SplashActivity"
             android:launchMode="singleTask"
@@ -56,7 +62,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.home_page.page_map.PageMapActivity"></activity>
+        <!--景区地图-->
+        <activity
+            android:name=".ui.main.home_page.page_map.PageMapActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

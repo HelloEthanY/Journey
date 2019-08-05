@@ -3,12 +3,14 @@ package com.journey.org.app;
 import com.journey.org.app.base.BasePlayAndroidEntity;
 import com.journey.org.data.home_page.HomePageBannerEntity;
 import com.journey.org.data.home_page.PageDetailVideoEntity;
+import com.journey.org.data.home_page.PagePhotoEntity;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * 数据接口类
@@ -22,7 +24,7 @@ public interface API {
     //  https://www.wanandroid.com/banner/json
     @GET("banner/json")
     Observable<BasePlayAndroidEntity<List<HomePageBannerEntity>>> getHomePageBanner();
-
+    /*******************************************网易视频*****************************************/
     // 得到视频地址 - 网易视频
 
     /**
@@ -32,5 +34,15 @@ public interface API {
      */
     @GET("api/v3/ranklist?num=10&strategy=%s&udid=26868b32e808498db32fd51fb422d00175e179df&vc=83")
     Observable<PageDetailVideoEntity> getPageDetailVideoList();
+
+    /*******************************************图虫壁纸*****************************************/
+    /**
+     * 图虫壁纸
+     *
+     * @param page
+     * @return
+     */
+    @GET("2/wall-paper/app")
+    Observable<PagePhotoEntity> getPagePhotoList(@Query("page") int page);
 
 }

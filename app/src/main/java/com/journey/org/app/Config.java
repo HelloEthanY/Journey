@@ -12,6 +12,8 @@ public class Config {
     public static final String PLAY_ANDROID_BASE_URL = "https://www.wanandroid.com/";
     // 网易
     public static final String WANGYI_BASE_URL = "http://baobab.kaiyanapp.com/";
+    // 图虫壁纸
+    public static final String TUCHONG_BASE_URL = "https://api.tuchong.com/";
 
 
 }

@@ -44,4 +44,14 @@ public class HttpManager {
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer());
     }
+
+    // 图虫壁纸
+    public Observable getPagePhotoList(int page) {
+        // Map<String,String> header = new HashMap<>();
+        return ArcgisRetrofitManager.getInstance(Config.TUCHONG_BASE_URL)
+                .create(API.class)
+                .getPagePhotoList(page)
+                .compose(RxUtils.schedulersTransformer())
+                .compose(RxUtils.exceptionTransformer());
+    }
 }
