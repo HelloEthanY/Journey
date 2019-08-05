@@ -188,7 +188,7 @@ public class PageDetailFragment extends BaseFragment<FragmentPageDetailBinding, 
             @Override
             public void onChanged(@Nullable Void bean) {
                 ToastUtils.showShort("地理位置");
-                startActivity(PageMapActivity.classs);
+                startActivity(PageMapActivity.class);
             }
         });
         // 视频地址回调
