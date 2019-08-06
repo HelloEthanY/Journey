@@ -20,7 +20,7 @@ public class BigImageViewModel extends BaseToolbarViewModel {
 
     public void initToolbar(String title) {
         toolbarTitle.set(title);
-        onShowMenu.set(false);
+        onShowMenu.set(true);
     }
 
     // 图片地址

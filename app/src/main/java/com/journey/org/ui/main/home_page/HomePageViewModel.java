@@ -2,6 +2,7 @@ package com.journey.org.ui.main.home_page;
 
 import android.app.Application;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -71,10 +72,13 @@ public class HomePageViewModel extends BaseViewModel {
     }
 
     // 选择城市
-    public BindingCommand onClickSelectCity = new BindingCommand(new BindingAction() {
+    public ObservableField<String> cityNameField = new ObservableField<>("贵阳");
+    public SingleLiveEvent<Void> onClickSelectCityEvent = new SingleLiveEvent<>();
+    public BindingCommand onClickSelectCityCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
             ToastUtils.showShort("点击选择城市");
+            onClickSelectCityEvent.call();
         }
     });
 
@@ -93,6 +97,7 @@ public class HomePageViewModel extends BaseViewModel {
             ToastUtils.showShort("点击搜索框");
         }
     });
+
     // 得到banner 的数据
     public void requestBannerData() {
         HttpManager.getInstance()

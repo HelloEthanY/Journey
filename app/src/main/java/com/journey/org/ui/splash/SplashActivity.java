@@ -1,10 +1,12 @@
 package com.journey.org.ui.splash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.journey.org.BR;
 import com.journey.org.R;
+import com.journey.org.app.service.LocationInfoService;
 import com.journey.org.databinding.ActivitySplashBinding;
 import com.journey.org.ui.main.MainActivity;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -51,6 +53,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     public void initData() {
         super.initData();
+        startService(new Intent(this, LocationInfoService.class));
         // 设置3秒进入主界面
         Observable.just("")
                 .delay(2, TimeUnit.SECONDS)

@@ -22,9 +22,10 @@ import com.journey.org.ui.custom.popup.PopupWindowFactory;
 import com.journey.org.ui.custom.popup.page_detail.PageDetailPopupWindow;
 import com.journey.org.ui.main.home_page.page_map.PageMapActivity;
 import com.journey.org.ui.main.home_page.page_photo.PagePhotoFragment;
+import com.journey.org.ui.main.home_page.page_ticket.PageTicketFragment;
+import com.journey.org.ui.web.WebActivity;
 
 import me.goldze.mvvmhabit.base.BaseFragment;
-import me.goldze.mvvmhabit.utils.ToastUtils;
 
 /**
  * 首页详情
@@ -116,7 +117,10 @@ public class PageDetailFragment extends BaseFragment<FragmentPageDetailBinding, 
             public void itemClick(PageDetailMenuEntity pageDetailMenuEntity) {
                 switch (pageDetailMenuEntity.getTitle()) {
                     case "门票":
-
+                        Bundle bundle = new Bundle();
+                        bundle.putString("webUrl","http://www.baidu.com/");
+                        startActivity(WebActivity.class, bundle);
+                        //  startContainerActivity(PageTicketFragment.class.getCanonicalName(), bundle);
                         break;
 
                     case "收藏":
@@ -174,7 +178,10 @@ public class PageDetailFragment extends BaseFragment<FragmentPageDetailBinding, 
         viewModel.onClickBookingEvent.observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void aVoid) {
-                ToastUtils.showShort("预订门票");
+                Bundle bundle = new Bundle();
+                bundle.putString("webUrl","http://www.baidu.com/");
+                startActivity(WebActivity.class, bundle);
+                // startContainerActivity(PageTicketFragment.class.getCanonicalName(), bundle);
             }
         });
         // 景区图片集合
@@ -188,7 +195,6 @@ public class PageDetailFragment extends BaseFragment<FragmentPageDetailBinding, 
         viewModel.onClickBaiMapEvent.observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void bean) {
-                ToastUtils.showShort("地理位置");
                 Bundle bundle = new Bundle();
                 bundle.putDouble("longitude", 26.499389873224153);
                 bundle.putDouble("latitude", 108.17915965086003);

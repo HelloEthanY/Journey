@@ -8,15 +8,13 @@
 
         <variable
             name="viewModel"
-            type="com.journey.org.ui.big_image.BigImageViewModel" />
-
+            type="com.journey.org.ui.main.home_page.page_ticket.PageTicketViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--toolbar-->
         <include
             android:id="@+id/include"
             layout="@layout/layout_toolbar"
@@ -25,14 +23,6 @@
             app:layout_constraintTop_toTopOf="parent"
             binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
 
-        <com.journey.org.ui.custom.photo.PhotoView
-            android:id="@+id/iv_big"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include"
-            binding:url="@{viewModel.bigImageUrl}" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

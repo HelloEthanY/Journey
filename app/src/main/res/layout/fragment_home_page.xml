@@ -72,7 +72,7 @@
                             <LinearLayout
                                 android:id="@+id/main_head_head"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_marginStart="5dp"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal"
@@ -80,13 +80,16 @@
                                 app:layout_constraintHorizontal_chainStyle="spread"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toLeftOf="@+id/main_head_center"
-                                app:layout_constraintTop_toTopOf="parent">
+                                app:layout_constraintTop_toTopOf="parent"
+                                binding:isThrottleFirst="@{Boolean.TRUE}"
+                                binding:onClickCommand="@{viewModel.onClickSelectCityCommand}">
 
                                 <TextView
+                                    android:id="@+id/tv_city"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="贵阳"
+                                    android:text="@{viewModel.cityNameField}"
                                     android:textColor="@color/white"
                                     android:textSize="12sp" />
 

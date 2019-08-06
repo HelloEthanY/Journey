@@ -52,4 +52,5 @@ dependencies {
     implementation files('libs/IndoorscapeAlbumPlugin.jar')
     //multidex分包
     implementation 'com.android.support:multidex:1.0.3'
+    implementation project(':citypicker')
 }

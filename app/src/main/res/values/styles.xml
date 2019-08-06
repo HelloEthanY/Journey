@@ -104,5 +104,9 @@ super.onCreate(savedInstanceState); 之前设置     getWindow().setBackgroundDr
         <!--溢出菜单高度-->
         <item name="android:dropDownHeight">wrap_content</item>
     </style>
-
+    <!--选择城市动画-->
+    <style name="CustomAnim">
+        <item name="android:windowEnterAnimation">@anim/custom_push_down_in</item>
+        <item name="android:windowExitAnimation">@anim/custom_push_up_out</item>
+    </style>
 </resources>

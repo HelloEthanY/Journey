@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <paths>
+      <!--  <external-path
+            name="journey_photos"
+            path="journey_photo/" />-->
+        <root-path path="journey_photo/" name="journey_photos" />
+    </paths>
+</resources>
