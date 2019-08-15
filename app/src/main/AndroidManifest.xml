@@ -22,6 +22,8 @@
     <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--相机权限-->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".app.JourneyApplication"
@@ -69,6 +71,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--景区详情-->
+        <activity
+            android:name=".ui.main.home_page.page_detail.PageDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask" />
+
         <!-- 景区地图 -->
         <activity
             android:name=".ui.main.home_page.page_map.PageMapActivity"

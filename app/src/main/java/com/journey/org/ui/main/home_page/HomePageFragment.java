@@ -15,7 +15,7 @@ import com.journey.org.app.base.BaseLazyFragment;
 import com.journey.org.data.home_page.HomePageBannerEntity;
 import com.journey.org.databinding.FragmentHomePageBinding;
 import com.journey.org.ui.main.home_page.city.CitySelectActivity;
-import com.journey.org.ui.main.home_page.page_detail.PageDetailFragment;
+import com.journey.org.ui.main.home_page.page_detail.PageDetailActivity;
 import com.journey.org.ui.web.WebActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -24,7 +24,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.bus.RxBus;
 import me.goldze.mvvmhabit.utils.KLog;
-import tv.danmaku.ijk.media.player.AndroidMediaPlayer;
 
 /**
  * 旅游系统 - 首页
@@ -33,7 +32,6 @@ import tv.danmaku.ijk.media.player.AndroidMediaPlayer;
  * @Date 2019/7/29
  */
 public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, HomePageViewModel> {
-
 
     @Override
     protected void lazyLoadData() {
@@ -88,7 +86,8 @@ public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, 
                 Bundle bundle = new Bundle();
                 bundle.putString("id", s);
                 bundle.putString("name", "西江千户苗寨");
-                startContainerActivity(PageDetailFragment.class.getCanonicalName(), bundle);
+                // startContainerActivity(PageDetailActivity.class.getCanonicalName(), bundle);
+                startActivity(PageDetailActivity.class, bundle);
             }
         });
 
@@ -112,6 +111,8 @@ public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, 
 
                 Intent intent = new Intent(getActivity(), CitySelectActivity.class);
                 startActivityForResult(intent, 200);
+                getActivity().overridePendingTransition(R.anim.custom_push_down_in,
+                        R.anim.popup_out_anim);
             }
         });
     }

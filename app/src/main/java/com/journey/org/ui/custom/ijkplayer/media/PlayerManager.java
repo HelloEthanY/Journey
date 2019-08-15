@@ -20,8 +20,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.journey.org.R;
-
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.ijk.media.player.pragma.DebugLog;
@@ -246,7 +244,9 @@ public class PlayerManager {
     }
 
     public void onDestroy() {
-        orientationEventListener.disable();
+        if (orientationEventListener != null) {
+            orientationEventListener.disable();
+        }
         videoView.stopPlayback();
     }
 
@@ -664,6 +664,10 @@ public class PlayerManager {
      */
     public int getDuration() {
         return videoView.getDuration();
+    }
+
+    public void seeKTo(int dr) {
+        videoView.seekTo(dr);
     }
 
     public PlayerManager playInFullScreen(boolean fullScreen) {

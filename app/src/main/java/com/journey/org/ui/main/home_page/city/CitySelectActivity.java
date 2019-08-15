@@ -2,9 +2,7 @@ package com.journey.org.ui.main.home_page.city;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.baidu.location.BDLocation;
@@ -76,11 +74,15 @@ public class CitySelectActivity extends AppCompatActivity {
                         setResult(Activity.RESULT_OK, intent);
                         KLog.e("=======点击的数据：%s，%s" + data.getName() + "=====" + data.getCode());
                         finish();
+                        overridePendingTransition(R.anim.popup_in_anim,
+                                R.anim.custom_push_up_out);
                     }
 
                     @Override
                     public void onCancel() {
                         finish();
+                        overridePendingTransition(R.anim.popup_in_anim,
+                                R.anim.custom_push_up_out);
                     }
 
                     @Override
