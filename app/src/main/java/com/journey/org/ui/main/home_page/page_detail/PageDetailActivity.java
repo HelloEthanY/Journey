@@ -2,7 +2,6 @@ package com.journey.org.ui.main.home_page.page_detail;
 
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,11 +10,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 
+import com.dou361.ijkplayer.listener.OnPlayerBackListener;
+import com.dou361.ijkplayer.listener.OnShowThumbnailListener;
+import com.dou361.ijkplayer.widget.PlayStateParams;
+import com.dou361.ijkplayer.widget.PlayerView;
 import com.journey.org.BR;
 import com.journey.org.R;
 import com.journey.org.app.inf.OnItemClickListener;
@@ -23,8 +23,6 @@ import com.journey.org.app.utils.SystemUtil;
 import com.journey.org.data.home_page.PageDetailMenuEntity;
 import com.journey.org.data.home_page.PageDetailVideoEntity;
 import com.journey.org.databinding.FragmentPageDetailBinding;
-import com.journey.org.ui.custom.ijkplayer.media.AndroidMediaController;
-import com.journey.org.ui.custom.ijkplayer.media.PlayerManager;
 import com.journey.org.ui.custom.popup.PopupWindowFactory;
 import com.journey.org.ui.custom.popup.page_detail.PageDetailPopupWindow;
 import com.journey.org.ui.main.home_page.page_map.PageMapActivity;
@@ -32,7 +30,6 @@ import com.journey.org.ui.main.home_page.page_photo.PagePhotoFragment;
 import com.journey.org.ui.web.WebActivity;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
-import me.goldze.mvvmhabit.utils.ToastUtils;
 
 /**
  * 首页详情
@@ -49,20 +46,8 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
     private PageDetailRecycleViewAdapter mAdapter;
     // 菜单
     private PageDetailPopupWindow mDetailMenuPopupWindow;
-    // 播发管理器
-    private PlayerManager mPlayerManager;
     // 横竖屏切换
     private boolean isScreen = false;
-    private AndroidMediaController mController;
-
-    @Override
-    public void initStatusBar() {
-        super.initStatusBar();
-   /*     ConstraintLayout.LayoutParams layoutParams =
-                (ConstraintLayout.LayoutParams) binding.include.layoutStatusBar.getLayoutParams();
-        layoutParams.height = SPUtils.getInstance().getInt("toolbarHeight");
-        binding.include.layoutStatusBar.setLayoutParams(layoutParams);*/
-    }
 
     @Override
     public void initParam() {
@@ -85,15 +70,35 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
         return BR.viewModel;
     }
 
+    private PlayerView player;
+
     @Override
     public void initData() {
         super.initData();
         // 创建播放器管理器
-        mPlayerManager = new PlayerManager(this, binding.videoView);
-        //
-        mController = new AndroidMediaController(this);
-        // 设置控制器
-        mPlayerManager.getVideoView().setMediaController(mController);
+        player = new PlayerView(this)
+                .setTitle("")
+                .setScaleType(PlayStateParams.fitparent)
+                .forbidTouch(false)
+                .hideBack(true)
+                .hideMenu(true)
+                .showThumbnail(new OnShowThumbnailListener() {
+                    @Override
+                    public void onShowThumbnail(ImageView ivThumbnail) {
+                        /*Glide.with(this)
+                                .load("http://pic2.nipic.com/20090413/406638_125424003_2.jpg")
+                                .placeholder(R.color.cl_default)
+                                .error(R.color.cl_error)
+                                .into(ivThumbnail);*/
+                    }
+                })
+                .setPlayerBackListener(new OnPlayerBackListener() {
+                    @Override
+                    public void onPlayerBack() {
+                        //这里可以简单播放器点击返回键
+                        finish();
+                    }
+                });
         // 初始化popupWindow
         initPopup();
         // 不允许上拉加载更多
@@ -137,7 +142,6 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
                         Bundle bundle = new Bundle();
                         bundle.putString("webUrl", "http://www.baidu.com/");
                         startActivity(WebActivity.class, bundle);
-                        //  startContainerActivity(PageTicketFragment.class.getCanonicalName(), bundle);
                         break;
 
                     case "收藏":
@@ -158,103 +162,15 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
             }
         });
         /*******************************************视频**************************************/
-
-        mPlayerManager.setPlayerStateListener(new PlayerManager.PlayerStateListener() {
+        // 视频地址回调
+        viewModel.onVideoPathEvent.observe(this, new Observer<PageDetailVideoEntity.ItemListBean>() {
             @Override
-            public void onComplete() { // 播放完成
-                binding.ivStart.clearAnimation();
-                binding.ivStart.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onError() {// 播发错误
-                ToastUtils.showShort("播发错误");
-                binding.ivStart.clearAnimation();
-                binding.ivStart.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onLoading() { // 正在加载
-                binding.ivStart.setVisibility(View.VISIBLE);
-                startAnim();
-            }
-
-            @Override
-            public void onPlay() { // 正在播发
-                binding.ivStart.clearAnimation();
-                binding.ivStart.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        // 视频准备好了监听
-      /*  binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-
-            }
-        });
-        // 设置视频播发错误监听
-        binding.videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-            @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                binding.ivStart.setVisibility(View.VISIBLE);
-                binding.videoView.stopPlayback();
-                return false;
-            }
-        });
-        // 设置视频播发完成监听
-        binding.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                binding.ivStart.setVisibility(View.VISIBLE);
-            }
-        });
-
-*/
-        // 点击屏幕隐藏导航栏
-        binding.videoView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    View decorView = getWindow().getDecorView();
-                    decorView.setSystemUiVisibility(
-                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY //(修改这个选项，可以设置不同模式)
-                                    //使用下面三个参数，可以使内容显示在system bar的下面，防止system bar显示或
-                                    //隐藏时，Activity的大小被resize。
-                                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                                    // 隐藏导航栏和状态栏
-                                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                                    | View.SYSTEM_UI_FLAG_FULLSCREEN);
+            public void onChanged(@Nullable PageDetailVideoEntity.ItemListBean bean) {
+                if (bean != null) {
+                    player.setTitle(bean.getData().getTitle())
+                            .setPlaySource(bean.getData().getPlayUrl())
+                            .startPlay();
                 }
-            }
-        });
-
-        // 点击切换横竖屏
-        binding.ivFullScreen.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View v) {
-                if (isScreen) { // 竖屏
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                } else { // 横屏
-                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                }
-                isScreen = !isScreen;
-            }
-        });
-
-        // 点击开始播发按钮
-        binding.ivStart.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View v) {
-                mPlayerManager.play("");
-                // binding.videoView.start();
-                binding.ivStart.setVisibility(View.GONE);
             }
         });
         /*******************************************头布局**************************************/
@@ -291,48 +207,40 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
                 startActivity(PageMapActivity.class, bundle);
             }
         });
-        // 视频地址回调
-        viewModel.onVideoPathEvent.observe(this, new Observer<PageDetailVideoEntity.ItemListBean>() {
-            @Override
-            public void onChanged(@Nullable PageDetailVideoEntity.ItemListBean bean) {
-                if (bean != null) {
 
-                    if (mPlayerManager.isPlaying()) {
-                        System.out.println("==============视频正在播发");
-                        mPlayerManager.getVideoView().seekTo(mPlayerManager.getDuration());
-                        //  mPlayerManager.onDestroy();
-                        mPlayerManager.stop();
-                    } else {
-                        mPlayerManager.play(bean.getData().getPlayUrl());
-                    }
-                }
-            }
-        });
         /*******************************************体布局**************************************/
-
     }
 
-    //开始播发动画
-    private void startAnim() {
-        AnimationSet animset = new AnimationSet(false);
-        RotateAnimation mrotate = new RotateAnimation(0,
-                360, Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        mrotate.setDuration(800);
-        LinearInterpolator ddd = new LinearInterpolator();
-        mrotate.setInterpolator(ddd);
-        mrotate.setRepeatCount(10000);
-        mrotate.setFillAfter(true);
-        animset.addAnimation(mrotate);
-        binding.ivStart.startAnimation(animset);
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (player != null) {
+            player.onPause();
+        }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (player != null) {
+            player.onResume();
+        }
+    }
 
-    //横竖屏监听
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (player != null) {
+            player.onDestroy();
+        }
+    }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        if (player != null) {
+            player.onConfigurationChanged(newConfig);
+        }
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {// 当前等于横屏
             // 隐藏状态栏
             WindowManager.LayoutParams lp = getWindow().getAttributes();
@@ -344,8 +252,6 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
             int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
-
-            //  AndroidBarUtil.statusBarHide(this);
             // 修改高度
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)
                     binding.layoutAppbar.getLayoutParams();
@@ -374,20 +280,10 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        mPlayerManager.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mPlayerManager.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPlayerManager.onDestroy();
+    public void onBackPressed() {
+        if (player != null && player.onBackPressed()) {
+            return;
+        }
+        super.onBackPressed();
     }
 }

@@ -1,1 +1,1 @@
-include ':app', ':mvvmhabit', ':citypicker'
+include ':app', ':mvvmhabit', ':citypicker',':jjdxm-ijkplayer'

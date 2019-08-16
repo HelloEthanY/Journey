@@ -106,35 +106,26 @@
                             app:layout_collapseParallaxMultiplier="0.7"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <com.journey.org.ui.custom.ijkplayer.media.IjkVideoView
-                                android:id="@+id/video_view"
+                            <!--    <com.journey.org.ui.custom.ijkplayer.media.IjkVideoView
+                                    android:id="@+id/video_view"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    app:layout_constraintBottom_toTopOf="@+id/video_list"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                </com.journey.org.ui.custom.ijkplayer.media.IjkVideoView>-->
+
+                            <include
+                                android:id="@+id/include_video"
+                                layout="@layout/simple_player_view_player"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 app:layout_constraintBottom_toTopOf="@+id/video_list"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                            </com.journey.org.ui.custom.ijkplayer.media.IjkVideoView>
-
-                            <ImageView
-                                android:id="@+id/iv_start"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@mipmap/ic_loading"
-                                app:layout_constraintBottom_toTopOf="@+id/video_list"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
-
-                            <ImageView
-                                android:id="@+id/iv_full_screen"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:padding="5dp"
-                                android:src="@mipmap/ic_full_screen"
-                                app:layout_constraintBottom_toTopOf="@+id/video_list"
-                                app:layout_constraintRight_toRightOf="parent" />
 
                             <!--视频列表-->
                             <android.support.v7.widget.RecyclerView
