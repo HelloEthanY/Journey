@@ -1040,7 +1040,7 @@ public class PlayerView {
 
             } else {
                 if (playerSupport) {
-                    query.id(R.id.app_video_loading).visible();
+                    // query.id(R.id.app_video_loading).visible();
                     videoView.start();
                 } else {
                     showStatus(mActivity.getResources().getString(R.string.not_support));

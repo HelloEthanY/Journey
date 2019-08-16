@@ -46,7 +46,6 @@ public class PageMapActivity extends BaseActivity<ActivityPageMapBinding, PageMa
     // 景区纬度
     private double mLatitude = 26.499389873224153;
 
-
     @Override
     public void initParam() {
         super.initParam();
@@ -111,6 +110,9 @@ public class PageMapActivity extends BaseActivity<ActivityPageMapBinding, PageMa
                 String name = mapPoi.getName();
                 KLog.e("===========name" + name);
                 ToastUtils.showShort(name);
+
+
+
                 return false;
             }
         });
@@ -119,7 +121,6 @@ public class PageMapActivity extends BaseActivity<ActivityPageMapBinding, PageMa
             @Override
             public boolean onMarkerClick(Marker marker) {
                 marker.setAlpha(0.6f);
-
                 return false;
             }
         });

@@ -80,6 +80,7 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
                 .setTitle("")
                 .setScaleType(PlayStateParams.fitparent)
                 .forbidTouch(false)
+                .hideCenterPlayer(true)
                 .hideBack(true)
                 .hideMenu(true)
                 .showThumbnail(new OnShowThumbnailListener() {
