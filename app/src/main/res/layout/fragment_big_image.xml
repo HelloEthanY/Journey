@@ -7,6 +7,16 @@
     <data>
 
         <variable
+            name="adapter"
+            type="me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter" />
+
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+        <import type="android.support.v7.widget.LinearLayoutManager" />
+
+
+        <variable
             name="viewModel"
             type="com.journey.org.ui.big_image.BigImageViewModel" />
 
@@ -25,14 +35,26 @@
             app:layout_constraintTop_toTopOf="parent"
             binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
 
-        <com.journey.org.ui.custom.photo.PhotoView
-            android:id="@+id/iv_big"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/big_image_content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include"
-            binding:url="@{viewModel.bigImageUrl}" />
+            binding:adapter="@{adapter}"
+            binding:itemBinding="@{viewModel.itemBinding}"
+            binding:items="@{viewModel.items}"
+            binding:layoutManager="@{LayoutManagers.linear(LinearLayoutManager.HORIZONTAL,Boolean.FALSE)}">
+
+        </android.support.v7.widget.RecyclerView>
+        <!--     <com.journey.org.ui.custom.photo.PhotoView
+                 android:id="@+id/iv_big"
+                 android:layout_width="match_parent"
+                 android:layout_height="0dp"
+                 android:background="@color/black"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintTop_toBottomOf="@+id/include"
+                 binding:url="@{viewModel.bigImageUrl}" />-->
 
     </android.support.constraint.ConstraintLayout>
 </layout>

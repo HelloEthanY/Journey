@@ -67,17 +67,11 @@ public class PagePhotoFragment extends BaseFragment<FragmentPagePhotoBinding, Pa
         viewModel.onClickItemEvent.observe(this, new Observer<PagePhotoEntity.FeedListBean>() {
             @Override
             public void onChanged(@Nullable PagePhotoEntity.FeedListBean feedListBean) {
-                if (feedListBean != null) {
+                if (feedListBean != null && viewModel.photoEntity != null) {
+                    int index = viewModel.photoEntity.getFeedList().indexOf(feedListBean);
                     Bundle bundle = new Bundle();
-                    if ("video".equals(feedListBean.getType())) {
-                        bundle.putString("title", feedListBean.getEntry()
-                                .getAuthor().getDescription());
-                        bundle.putString("imageUrl", feedListBean.getEntry().getRaw_cover());
-                    } else {
-                        bundle.putString("title", feedListBean.getEntry()
-                                .getTitle());
-                        bundle.putString("imageUrl", feedListBean.getEntry().getTitle_image().getUrl());
-                    }
+                    bundle.putSerializable("images", viewModel.photoEntity);
+                    bundle.putInt("index", index);
                     startContainerActivity(BigImageFragment.class.getCanonicalName(), bundle);
                 }
             }

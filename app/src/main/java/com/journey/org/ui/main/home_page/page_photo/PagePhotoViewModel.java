@@ -2,6 +2,7 @@ package com.journey.org.ui.main.home_page.page_photo;
 
 import android.app.Application;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.annotation.NonNull;
 
@@ -26,6 +27,8 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 public class PagePhotoViewModel extends BaseToolbarViewModel {
     // 页数
     private int page = 1;
+
+    public PagePhotoEntity photoEntity;
 
     public PagePhotoViewModel(@NonNull Application application) {
         super(application);
@@ -56,15 +59,24 @@ public class PagePhotoViewModel extends BaseToolbarViewModel {
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        showDialog();
+                        if (page == 1) {
+                            showDialog();
+                        }
                     }
                 })
                 .subscribe(new Consumer<PagePhotoEntity>() {
                     @Override
                     public void accept(PagePhotoEntity pagePhotoEntity) throws Exception {
-                        dismissDialog();
+                        if (page == 1) {
+                            dismissDialog();
+                        }
                         if (pagePhotoEntity == null) {
                             return;
+                        }
+                        if (page == 1) {
+                            PagePhotoViewModel.this.photoEntity = pagePhotoEntity;
+                        } else {
+                            photoEntity.getFeedList().addAll(pagePhotoEntity.getFeedList());
                         }
                         for (PagePhotoEntity.FeedListBean entity : pagePhotoEntity.getFeedList()) {
                             items.add(new PagePhotoItemViewModel(PagePhotoViewModel.this, entity));
@@ -73,7 +85,9 @@ public class PagePhotoViewModel extends BaseToolbarViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        dismissDialog();
+                        if (page == 1) {
+                            dismissDialog();
+                        }
                     }
                 });
     }

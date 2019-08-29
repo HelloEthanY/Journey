@@ -131,4 +131,10 @@ public class HomePageViewModel extends BaseViewModel {
                     }
                 });
     }
+
+    // 请求得到景区数据
+    public void requestScenicData() {
+
+    }
+
 }
