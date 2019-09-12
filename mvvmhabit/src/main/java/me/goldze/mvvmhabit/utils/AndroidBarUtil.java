@@ -63,6 +63,19 @@ public class AndroidBarUtil {
     }
 
     /**
+     * 隐藏虚拟按键，并且全屏
+     */
+    public static void hideBottomNav(Activity activity) {
+        if (Build.VERSION.SDK_INT >= 19) {
+            View decorView = activity.getWindow().getDecorView();
+            decorView.setSystemUiVisibility(0);
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
+
+    /**
      * 导航栏，状态栏透明
      *
      * @param activity

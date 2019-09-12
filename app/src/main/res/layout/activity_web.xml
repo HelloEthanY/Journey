@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:binding="http://schemas.android.com/apk/res-auto">
+    xmlns:binding="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -23,17 +23,21 @@
             layout="@layout/layout_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            binding:toolbarViewModel="@{viewModel.toolbarViewModel}"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
 
-        <WebView
-            android:id="@+id/web_view"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/web_refresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_include">
 
-        </WebView>
+            <WebView
+                android:id="@+id/web_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </android.support.constraint.ConstraintLayout>
 </layout>
 

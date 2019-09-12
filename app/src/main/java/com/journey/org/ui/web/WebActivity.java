@@ -29,6 +29,8 @@ public class WebActivity extends BaseActivity<ActivityWebBinding, WebViewModel> 
     // 网站地址
     private String webUrl = "http://www.baidu.com/";
 
+    private String title = "";
+
     @Override
     public void initParam() {
         super.initParam();
@@ -37,9 +39,9 @@ public class WebActivity extends BaseActivity<ActivityWebBinding, WebViewModel> 
             Bundle bundle = intent.getExtras();
             if (bundle != null) {
                 webUrl = bundle.getString("webUrl", webUrl);
+                title = bundle.getString("title", "");
             }
         }
-        KLog.e("===========" + webUrl);
     }
 
     @Override
@@ -60,10 +62,8 @@ public class WebActivity extends BaseActivity<ActivityWebBinding, WebViewModel> 
     @Override
     public void initData() {
         super.initData();
-        WebView webView = new WebView(this);
-
         // 初始化toolbar
-        viewModel.initToolbar("西江千户苗寨", false);
+        viewModel.initToolbar(title, false);
         // 初始化WebView
         initWebView();
     }
@@ -74,7 +74,6 @@ public class WebActivity extends BaseActivity<ActivityWebBinding, WebViewModel> 
         binding.webView.loadUrl(webUrl);
         // 初始化webView 的辅助类
         initWebSetting();
-
     }
 
     @Override
@@ -88,6 +87,7 @@ public class WebActivity extends BaseActivity<ActivityWebBinding, WebViewModel> 
                             .setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
                 }
             }
+
         });
         binding.webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -95,6 +95,7 @@ public class WebActivity extends BaseActivity<ActivityWebBinding, WebViewModel> 
                 handler.proceed();
             }
         });
+
     }
 
     // 初始化webView 的辅助类
@@ -102,7 +103,6 @@ public class WebActivity extends BaseActivity<ActivityWebBinding, WebViewModel> 
     private void initWebSetting() {
         //声明WebSettings子类
         WebSettings webSettings = binding.webView.getSettings();
-
         //如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript
         webSettings.setJavaScriptEnabled(true);
         //支持插件

@@ -106,17 +106,6 @@
                             app:layout_collapseParallaxMultiplier="0.7"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <!--    <com.journey.org.ui.custom.ijkplayer.media.IjkVideoView
-                                    android:id="@+id/video_view"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    app:layout_constraintBottom_toTopOf="@+id/video_list"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toRightOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent">
-
-                                </com.journey.org.ui.custom.ijkplayer.media.IjkVideoView>-->
-
                             <include
                                 android:id="@+id/include_video"
                                 layout="@layout/simple_player_view_player"
@@ -156,10 +145,11 @@
                 </android.support.v7.widget.RecyclerView>
 
                 <android.support.design.widget.FloatingActionButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/float_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="bottom|right"
-                    android:layout_margin="16dp"
+                    android:layout_margin="10dp"
                     app:layout_anchorGravity="bottom|right|end" />
 
             </android.support.design.widget.CoordinatorLayout>

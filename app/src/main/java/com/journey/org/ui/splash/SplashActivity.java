@@ -33,10 +33,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
         getWindow().setBackgroundDrawable(null);
         statusBarHeight = AndroidBarUtil.getStatusBarHeight(this);
         SPUtils.getInstance().put("toolbarHeight", statusBarHeight);
-        // 隐藏状态栏
-        AndroidBarUtil.statusBarHide(this);
-        // 隐藏导航栏
-        AndroidBarUtil.setNavigationBar(this, View.GONE);
+        // 隐藏导航栏 隐藏状态栏
+        AndroidBarUtil.NavigationBarStatusBar(this, true);
         super.onCreate(savedInstanceState);
     }
 

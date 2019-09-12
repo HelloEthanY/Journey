@@ -6,6 +6,7 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
+        manifestPlaceholders=[orientation:rootProject.ext.android.screenOrientation]  // landscape : 横屏     portrait ：竖屏
     }
     dataBinding {
         enabled true

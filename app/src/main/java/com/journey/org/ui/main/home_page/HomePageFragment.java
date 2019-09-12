@@ -100,6 +100,7 @@ public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, 
                 }
                 Bundle bundle = new Bundle();
                 bundle.putString("webUrl", homePageBannerEntity.getUrl());
+                bundle.putString("title", homePageBannerEntity.getTitle());
                 startActivity(WebActivity.class, bundle);
             }
         });

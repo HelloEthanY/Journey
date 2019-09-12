@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.view.Gravity;
@@ -28,8 +29,11 @@ import com.journey.org.ui.custom.popup.page_detail.PageDetailPopupWindow;
 import com.journey.org.ui.main.home_page.page_map.PageMapActivity;
 import com.journey.org.ui.main.home_page.page_photo.PagePhotoFragment;
 import com.journey.org.ui.web.WebActivity;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
+import me.goldze.mvvmhabit.utils.AndroidBarUtil;
 
 /**
  * 首页详情
@@ -52,12 +56,24 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
     @Override
     public void initParam() {
         super.initParam();
+    /*    ConstraintLayout.LayoutParams layoutParams =
+                (ConstraintLayout.LayoutParams) binding.statusBarLayout.getLayoutParams();
+        layoutParams.height = SPUtils.getInstance().getInt("toolbarHeight");
+        binding.statusBarLayout.setLayoutParams(layoutParams);*/
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
             return;
         }
         mScenicName = bundle.getString("name", "");
         mId = bundle.getString("id", "");
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        // 隐藏导航栏
+        AndroidBarUtil.hideBottomNav(this);
     }
 
     @Override
@@ -142,6 +158,7 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
                     case "门票":
                         Bundle bundle = new Bundle();
                         bundle.putString("webUrl", "http://www.baidu.com/");
+                        bundle.putString("title", "门票");
                         startActivity(WebActivity.class, bundle);
                         break;
 
@@ -176,13 +193,12 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
         });
         /*******************************************头布局**************************************/
         // 预订门票
-        viewModel.onClickBookingEvent.observe(this, new Observer<Void>()
-
-        {
+        viewModel.onClickBookingEvent.observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void aVoid) {
                 Bundle bundle = new Bundle();
                 bundle.putString("webUrl", "http://www.baidu.com/");
+                bundle.putString("title", "门票");
                 startActivity(WebActivity.class, bundle);
                 // startContainerActivity(PageTicketFragment.class.getCanonicalName(), bundle);
             }
@@ -210,6 +226,22 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
         });
 
         /*******************************************体布局**************************************/
+        // 悬浮按钮点击事件
+        binding.floatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 滑动RecycleView 到顶部
+                binding.pageContent.smoothScrollToPosition(0);
+            }
+        });
+        // 下拉刷新事件
+        binding.pageDetailRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(800);
+                viewModel.loadVideoListData(true);
+            }
+        });
     }
 
     @Override
@@ -243,16 +275,14 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
             player.onConfigurationChanged(newConfig);
         }
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {// 当前等于横屏
+            binding.floatBtn.setVisibility(View.GONE);
             // 隐藏状态栏
             WindowManager.LayoutParams lp = getWindow().getAttributes();
             lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
             getWindow().setAttributes(lp);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             // 隐藏导航栏
-            View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
+            AndroidBarUtil.hideBottomNav(this);
             // 修改高度
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)
                     binding.layoutAppbar.getLayoutParams();
@@ -261,15 +291,12 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
             binding.pageDetailRefresh.setEnableRefresh(false);
             binding.mainPageToolbar.setVisibility(View.GONE);
         } else { // 当前为竖屏
+            binding.floatBtn.setVisibility(View.VISIBLE);
             // 显示状态栏
             WindowManager.LayoutParams lp = getWindow().getAttributes();
             lp.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getWindow().setAttributes(lp);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            // 显示导航栏
-            View decorView = getWindow().getDecorView();
-            int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
-            decorView.setSystemUiVisibility(uiOptions);
             // 修改高度
             CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)
                     binding.layoutAppbar.getLayoutParams();

@@ -6,7 +6,7 @@
         <activity
             android:name=".base.ContainerActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="${orientation}">
 
         </activity>
         <activity
@@ -19,5 +19,4 @@
             android:exported="false"
             android:initOrder="101" />
     </application>
-
 </manifest>

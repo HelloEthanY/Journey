@@ -37,8 +37,11 @@ import me.tatarka.bindingcollectionadapter2.OnItemBind;
  * @Date 2019/7/29
  */
 public class PageDetailViewModel extends BaseViewModel {
-
+    // 页数
+    public int page = 0;
+    // 头布局类型
     public static final String DETAIL_HEAD = "detail_head";
+    // 体布局类型
     public static final String DETAIL_BODY = "detail_body";
 
     public PageDetailViewModel(@NonNull Application application) {
@@ -72,7 +75,6 @@ public class PageDetailViewModel extends BaseViewModel {
     public SingleLiveEvent<Void> onClickBookingEvent = new SingleLiveEvent<>();
     // 景区图片集合
     public SingleLiveEvent<Void> onClickScenicImgEvent = new SingleLiveEvent<>();
-
 
     /*****************************************视频列表*********************************************/
     public ItemBinding<HeadVideoItemViewModel> videoItemBinding = ItemBinding.of(BR.viewModel, R.layout.item_page_head_video);
@@ -259,9 +261,6 @@ public class PageDetailViewModel extends BaseViewModel {
         itemViewModel6.multiItemType(DETAIL_BODY);
         items.add(itemViewModel6);
     }
-
-
-    public int page = 0;
 
     // 请求视频地址
     public void loadVideoListData(boolean isRefresh) {

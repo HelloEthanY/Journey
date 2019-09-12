@@ -35,7 +35,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <!-- 百度地图 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -49,7 +48,7 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="${orientation}" />
         <!-- 解决7.0文件地址问题 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -80,7 +79,7 @@
         <!-- 景区地图 -->
         <activity
             android:name=".ui.main.home_page.page_map.PageMapActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="${orientation}" />
         <!-- Web -->
         <activity
             android:name=".ui.web.WebActivity"
@@ -88,7 +87,7 @@
         <!-- 城市选择 -->
         <activity
             android:name=".ui.main.home_page.city.CitySelectActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="${orientation}"
             android:theme="@style/DefaultCityPickerTheme" />
         <!--地理信息服务-->
         <service

@@ -1,21 +1,36 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
-        applicationId "com.journey.org"
-        minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders=[orientation:rootProject.ext.android.screenOrientation]  // landscape : 横屏     portrait ：竖屏
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled false
+            //是否自动清理未使用资源
+            shrinkResources false
         }
     }
+
+    // 自定义输出配置 3.0的写法
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            // 输出apk名称为【包名_渠道名_版本号_版本名_日期】
+            def fileName = "Journey_build_${defaultConfig.versionCode}_v${defaultConfig.versionName}_${buildTime()}.apk"
+            outputFileName = fileName
+        }
+    }
+
     dataBinding {
         enabled true
     }
@@ -56,4 +71,10 @@ dependencies {
     /* implementation('com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.5') {
          exclude group: 'com.android.support', module: 'appcompat-v7'
      }*/
+}
+//获取当前时间
+def static buildTime() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    formattedDate
 }
