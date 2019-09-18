@@ -14,11 +14,11 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            zipAlignEnabled false
+            zipAlignEnabled true
             //是否自动清理未使用资源
-            shrinkResources false
+            shrinkResources true
         }
     }
 
@@ -34,6 +34,7 @@ android {
     dataBinding {
         enabled true
     }
+
     sourceSets {
         main {
             jniLibs.srcDir 'libs'

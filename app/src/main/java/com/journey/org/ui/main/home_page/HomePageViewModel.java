@@ -52,6 +52,9 @@ public class HomePageViewModel extends BaseViewModel {
     public ObservableList<HomePageItemViewModel> items = new ObservableArrayList<>();
     public ItemBinding<HomePageItemViewModel> itemBinding = ItemBinding.of(BR.viewModel, R.layout.item_home_page);
 
+
+
+
     // 初始化RecycleView 的数据
     private void initItemData(Application application) {
         HomePageItemViewModel hotelViewModel = new HomePageItemViewModel(this, "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=27495044,3539569886&fm=26&gp=0.jpg",
