@@ -1,35 +1,31 @@
-package com.journey.org.ui.main.home_page;
+package com.journey.org.ui.main.home_technology;
 
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
-import me.goldze.mvvmhabit.base.ItemViewModel;
 import me.goldze.mvvmhabit.base.MultiItemViewModel;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
 
 /**
- * 首页
+ * 技术首页
  *
  * @author yu
  * @Date 2019/5/28
  */
-public class HomePageItemViewModel extends MultiItemViewModel<HomePageViewModel> {
+public class HomeTechnologyItemViewModel extends MultiItemViewModel<HomeTechnologyViewModel> {
 
     public String url;
-    public Drawable drawable;
 
-    public HomePageItemViewModel(@NonNull HomePageViewModel viewModel, String url, Drawable drawable) {
+    public HomeTechnologyItemViewModel(@NonNull HomeTechnologyViewModel viewModel, String url) {
         super(viewModel);
         this.url = url;
-        this.drawable = drawable;
     }
 
     // item 的点击事件
     public BindingCommand onClickItemCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            viewModel.onClickItemEvent.setValue(url);
+            // viewModel.onClickItemEvent.setValue(url);
         }
     });
 }

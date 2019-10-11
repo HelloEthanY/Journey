@@ -18,12 +18,15 @@ import java.util.List;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.base.BaseViewModel;
+import me.goldze.mvvmhabit.base.MultiItemViewModel;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
+import me.goldze.mvvmhabit.utils.KLog;
 import me.goldze.mvvmhabit.utils.RxUtils;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
+import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 /**
  * 旅游系统 - 首页
@@ -32,6 +35,11 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  * @Date 2019/7/29
  */
 public class HomePageViewModel extends BaseViewModel {
+    // 头布局类型
+    public static final String HOME_HEAD = "home_head";
+    // 体布局类型
+    public static final String HOME_BODY = "home_body";
+
     // banner item 的点击事件
     public SingleLiveEvent<HomePageBannerEntity> onClickBannerItemEvent = new SingleLiveEvent<>();
     // item 的点击事件
@@ -48,29 +56,47 @@ public class HomePageViewModel extends BaseViewModel {
     // ViewPager 的 binding
     public ItemBinding<HomeViewPagerItemViewModel> pagerItemBinding = ItemBinding.of(BR.viewModel, R.layout.item_home_page_view_pager);
 
-    // RecycleView
-    public ObservableList<HomePageItemViewModel> items = new ObservableArrayList<>();
-    public ItemBinding<HomePageItemViewModel> itemBinding = ItemBinding.of(BR.viewModel, R.layout.item_home_page);
+    /***************************************多列表布局**************************************************/
+    public ObservableList<MultiItemViewModel> items = new ObservableArrayList<>();
 
-
+    public ItemBinding<MultiItemViewModel> itemBinding = ItemBinding.of(new OnItemBind<MultiItemViewModel>() {
+        @Override
+        public void onItemBind(ItemBinding itemBinding, int position, MultiItemViewModel item) {
+            String itemType = (String) item.getItemType();
+            KLog.e("=======itemType:" + itemType);
+            if (HOME_HEAD.equals(itemType)) {// 头布局
+                itemBinding.set(BR.viewModel, R.layout.item_home_page_head);
+            } else {
+                itemBinding.set(BR.viewModel, R.layout.item_home_page);
+            }
+        }
+    });
 
 
     // 初始化RecycleView 的数据
     private void initItemData(Application application) {
-        HomePageItemViewModel hotelViewModel = new HomePageItemViewModel(this, "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=27495044,3539569886&fm=26&gp=0.jpg",
+        // 添加头数据
+        MultiItemViewModel headerViewModel = new HomePageItemHeadViewModel(this,application);
+        headerViewModel.multiItemType(HOME_HEAD);
+        items.add(headerViewModel);
+        // 首页体布局数据
+        MultiItemViewModel hotelViewModel = new HomePageItemViewModel(this, "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=27495044,3539569886&fm=26&gp=0.jpg",
                 ContextCompat.getDrawable(application, R.mipmap.ic_marker_hotel));
+        hotelViewModel.multiItemType(HOME_BODY);
         items.add(hotelViewModel);
 
-        HomePageItemViewModel groceryViewModel = new HomePageItemViewModel(this, "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1981636719,1972835883&fm=26&gp=0.jpg",
+        MultiItemViewModel groceryViewModel = new HomePageItemViewModel(this, "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1981636719,1972835883&fm=26&gp=0.jpg",
                 ContextCompat.getDrawable(application, R.mipmap.ic_marker_grocery));
         items.add(groceryViewModel);
 
-        HomePageItemViewModel snacksViewModel = new HomePageItemViewModel(this, "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3563365738,1288177324&fm=26&gp=0.jpg",
+        MultiItemViewModel snacksViewModel = new HomePageItemViewModel(this, "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3563365738,1288177324&fm=26&gp=0.jpg",
                 ContextCompat.getDrawable(application, R.mipmap.ic_marker_snacks));
+        snacksViewModel.multiItemType(HOME_BODY);
         items.add(snacksViewModel);
 
-        HomePageItemViewModel storeViewModel = new HomePageItemViewModel(this, "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1560594871,3464168313&fm=26&gp=0.jpg",
+        MultiItemViewModel storeViewModel = new HomePageItemViewModel(this, "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1560594871,3464168313&fm=26&gp=0.jpg",
                 ContextCompat.getDrawable(application, R.mipmap.ic_marker_store));
+        storeViewModel.multiItemType(HOME_BODY);
         items.add(storeViewModel);
     }
 

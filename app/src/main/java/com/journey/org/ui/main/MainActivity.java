@@ -17,6 +17,7 @@ import com.journey.org.app.service.LocationInfoService;
 import com.journey.org.databinding.ActivityMainBinding;
 import com.journey.org.ui.main.home_mine.HomeMineFragment;
 import com.journey.org.ui.main.home_page.HomePageFragment;
+import com.journey.org.ui.main.home_technology.HomeTechnologyFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +107,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
     private void initFragment() {
         mFragments = new ArrayList<>();
         mFragments.add(new HomePageFragment());
-        // mFragments.add(new OfficeFragment());
+        mFragments.add(new HomeTechnologyFragment());
         //  mFragments.add(new LandFragment());
         mFragments.add(new HomeMineFragment());
         commitAllowingStateLoss(0);
@@ -118,7 +119,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
     private void initBottomTab() {
         PageNavigationView.MaterialBuilder item = binding.mainTab.material();
         item.addItem(R.mipmap.ic_home_page, getString(R.string.home_page));
-        // item.addItem(R.mipmap.ic_home_work, getString(R.string.home_office));
+        item.addItem(R.mipmap.ic_home_android, getString(R.string.home_technology));
         // item.addItem(R.mipmap.ic_launcher, getString(R.string.home_land));
         item.addItem(R.mipmap.ic_home_mine, getString(R.string.home_mine));
 

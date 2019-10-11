@@ -2,8 +2,8 @@
     <string name="app_name">JourneySystem</string>
 
     <string name="home_page">首页</string>
+    <string name="home_technology">安卓</string>
     <string name="home_mine">我的</string>
-
 
     <string name="net_error">Sorry,您的网络出了问题导致操作失败，请检查网络状况</string>
     <string name="code_error">Sorry,操作失败！错误代码:</string>

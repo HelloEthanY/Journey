@@ -13,7 +13,7 @@
 
         <variable
             name="viewModel"
-            type="com.journey.org.ui.main.home_page.HomePageItemHeadViewModel" />
+            type="com.journey.org.ui.main.home_technology.HomeTechnologyItemHeadViewModel" />
 
     </data>
 

@@ -18,5 +18,27 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTranPrimary">#6600cc33</color>
     <color name="color99Primary">#9900cc33</color>
+    <array name="ran_type_color">
+        <item>#EE8E5C</item>
+        <item>#885BE0</item>
+        <item>#59B665</item>
+        <item>#64CEDC</item>
+        <item>#FF0050</item>
+        <item>#6396E4</item>
+        <item>#F5DB71</item>
+        <item>#DB5555</item>
+        <item>#EE4000</item>
+        <item>#FFC125</item>
+        <item>#DEB887</item>
+        <item>#CD0D90</item>
+        <item>#CD9B9B</item>
+        <item>#5F59C9</item>
+        <item>#C1FFC1</item>
+        <item>#B8860B</item>
+        <item>#B22222</item>
+        <item>#68228B</item>
+        <item>#555555</item>
+        <item>#1E9002</item>
+    </array>
 
 </resources>

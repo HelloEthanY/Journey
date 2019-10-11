@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.journey.org.ui.main.home_technology.HomeTechnologyItemViewModel" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/ic_corner_half_bg"
+        binding:onClickCommand="@{viewModel.onClickItemCommand}">
+        <!--景区图片-->
+        <com.journey.org.ui.custom.UpperCornerImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/ic_upper_corner_bg"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_gray_default"
+            binding:url="@{viewModel.url}" />
+
+        <!--景区图片下面的内容-->
+        <TextView
+            android:id="@+id/tv_technology_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:text="黄果树瀑布"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_icon" />
+        <!--
+
+                <ImageView
+                    android:id="@+id/iv_address"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="3dp"
+                    android:padding="2dp"
+                    android:src="@mipmap/ic_address"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_technology_name" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="3dp"
+                    android:gravity="center_vertical"
+                    android:text="贵州省安顺市"
+                    android:textColor="@color/color8AGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_address"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_technology_name" />
+        -->
+
+        <ImageView
+            android:id="@+id/iv_technology_detail"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="3dp"
+            android:padding="2dp"
+            android:src="@mipmap/ic_science_detail"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_technology_name" />
+
+        <TextView
+            android:id="@+id/tv_scenic_detail"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="古称白水河瀑布，亦名“黄葛墅”瀑布或“黄桷树”瀑布，因本地广泛分布着“黄葛榕”而得名。"
+            android:textColor="@color/color8AGrey"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/iv_technology_detail"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_technology_name" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
+
