@@ -34,6 +34,10 @@ super.onCreate(savedInstanceState); 之前设置     getWindow().setBackgroundDr
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="SpinnerStyle">
+        <item name="android:colorControlNormal">@color/white</item>
+    </style>
+
     <!--水平横线样式-->
     <style name="viewLineStyle">
         <item name="android:layout_width">match_parent</item>
@@ -109,4 +113,10 @@ super.onCreate(savedInstanceState); 之前设置     getWindow().setBackgroundDr
         <item name="android:windowEnterAnimation">@anim/custom_push_down_in</item>
         <item name="android:windowExitAnimation">@anim/custom_push_up_out</item>
     </style>
+    <!--tabLayout修改大小写问题-->
+    <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">12sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
 </resources>

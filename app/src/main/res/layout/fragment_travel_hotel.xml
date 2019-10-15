@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.journey.org.ui.main.home_travel.hotel.HotelViewModel" />
+
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+        <import type="com.journey.org.R" />
+
+        <variable
+            name="adapter"
+            type="me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/colorPrimary">
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_hotel_query"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:dropDownVerticalOffset="40dp"
+                android:spinnerMode="dropdown"
+                android:theme="@style/SpinnerStyle"
+                binding:dropDownResource="@{R.layout.item_spinner_title}"
+                binding:itemDatas="@{viewModel.typeItemData}"
+                binding:onItemSelectedCommand="@{viewModel.onTypeSelectorCommand}"
+                binding:resource="@{R.layout.item_spinner_title}"
+                binding:valueReply="@{viewModel.selectTypeNum}" />
+
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:dropDownVerticalOffset="40dp"
+                android:spinnerMode="dropdown"
+                android:theme="@style/SpinnerStyle"
+                binding:dropDownResource="@{R.layout.item_spinner_title}"
+                binding:itemDatas="@{viewModel.distanceItemData}"
+                binding:onItemSelectedCommand="@{viewModel.onDistanceSelectorCommand}"
+                binding:resource="@{R.layout.item_spinner_title}"
+                binding:valueReply="@{viewModel.selectDistanceNum}" />
+
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:dropDownVerticalOffset="40dp"
+                android:spinnerMode="dropdown"
+                android:theme="@style/SpinnerStyle"
+                binding:dropDownResource="@{R.layout.item_spinner_title}"
+                binding:itemDatas="@{viewModel.distanceItemData}"
+                binding:onItemSelectedCommand="@{viewModel.onScreenSelectorCommand}"
+                binding:resource="@{R.layout.item_spinner_title}"
+                binding:valueReply="@{viewModel.selectScreenNum}" />
+
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:dropDownVerticalOffset="40dp"
+                android:spinnerMode="dropdown"
+                android:theme="@style/SpinnerStyle"
+                binding:dropDownResource="@{R.layout.item_spinner_title}"
+                binding:itemDatas="@{viewModel.sortingItemData}"
+                binding:onItemSelectedCommand="@{viewModel.onSortingSelectorCommand}"
+                binding:resource="@{R.layout.item_spinner_title}"
+                binding:valueReply="@{viewModel.selectSortingNum}" />
+
+        </LinearLayout>
+
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/foot_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_hotel_query">
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                binding:adapter="@{adapter}"
+                binding:itemBinding="@{viewModel.itemBinding}"
+                binding:items="@{viewModel.items}"
+                binding:layoutManager="@{LayoutManagers.linear()}" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
+

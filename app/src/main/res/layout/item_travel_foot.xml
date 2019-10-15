@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.journey.org.ui.main.home_travel.foot.FootItemViewModel" />
+
+        <import type="com.journey.org.ui.custom.NoScrollLayoutManagers" />
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="10dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <!--顶部内容开始-->
+            <ImageView
+                android:id="@+id/foot_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/foot_name"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:gravity="center_vertical"
+                android:text="德克士"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@+id/foot_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/foot_address_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="3dp"
+                android:src="@mipmap/ic_primary_address"
+                app:layout_constraintLeft_toRightOf="@+id/foot_icon"
+                app:layout_constraintTop_toBottomOf="@+id/foot_name" />
+
+            <TextView
+                android:id="@+id/foot_address"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="5dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="贵州省贵阳省南明区花果园兰花广场"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toRightOf="@+id/foot_address_icon"
+                app:layout_constraintRight_toLeftOf="@+id/foot_map_address"
+                app:layout_constraintTop_toBottomOf="@+id/foot_name" />
+
+            <ImageView
+                android:id="@+id/foot_map_address"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@mipmap/ic_address"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <!--顶部内容结束-->
+            <!--星级-->
+            <RatingBar
+                android:id="@+id/foot_rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="5dp"
+                android:numStars="5"
+                android:stepSize="2.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/foot_icon" />
+
+            <TextView
+                android:id="@+id/foot_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@+id/foot_rating" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/foot_detail">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    binding:itemBinding="@{viewModel.itemBinding}"
+                    binding:items="@{viewModel.items}"
+                    binding:layoutManager="@{NoScrollLayoutManagers.grid(3)}" />
+
+            </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</layout>
+

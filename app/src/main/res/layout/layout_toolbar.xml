@@ -73,7 +73,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="?selectableItemBackground"
                     android:padding="18dp"
-                    android:src="@mipmap/ic_round_menu"
+                    android:src="@{toolbarViewModel.rightIcon}"
                     android:visibility="@{toolbarViewModel.onShowMenu?View.VISIBLE:View.INVISIBLE}"
                     app:layout_constraintRight_toRightOf="parent"
                     binding:onClickCommand="@{toolbarViewModel.onClickMenuCommand}" />

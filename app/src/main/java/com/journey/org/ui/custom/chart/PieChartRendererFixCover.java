@@ -986,7 +986,7 @@ public class PieChartRendererFixCover extends PieChartRenderer {
 //            //画右边
 //            for (int j = 0; j < entryCount; j++) {
 //
-//                PieEntry entry = dataSet.getEntryForIndex(j);
+//                PieEntity entry = dataSet.getEntryForIndex(j);
 //
 //                if (xIndex == 0)
 //                    angle = 0.f;
@@ -1173,7 +1173,7 @@ public class PieChartRendererFixCover extends PieChartRenderer {
 //            xIndex = entryCount - 1;
 //            for (int j = entryCount - 1; j >= 0; j--) {
 //
-//                PieEntry entry = dataSet.getEntryForIndex(j);
+//                PieEntity entry = dataSet.getEntryForIndex(j);
 //
 //                if (xIndex == 0)
 //                    angle = 0.f;

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.journey.org.ui.main.home_technology.page_chart.custom_chart.CustomChartViewModel" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--toolbar-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--可以换行的饼状图-->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="@dimen/CardView_cardCornerRadius"
+                    app:cardElevation="@dimen/CardView_cardElevation">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MPAndroid换行的饼状图"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <com.journey.org.ui.custom.chart.CustomPieChart
+                            android:id="@+id/pieChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <View style="@style/viewLineStyle" />
+
+                <!--换行 + 小于百分之5以下需要展示-->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="@dimen/CardView_cardCornerRadius"
+                    app:cardElevation="@dimen/CardView_cardElevation">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MPAndroid小于百分之5"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <com.journey.org.ui.custom.chart.PieChartFixCover
+                            android:id="@+id/pieChart1"
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <View style="@style/viewLineStyle" />
+                <!--自定义的饼状图-->
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="@dimen/CardView_cardCornerRadius"
+                    app:cardElevation="@dimen/CardView_cardElevation">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="自定义的饼状图"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <com.journey.org.ui.custom.chart.pieview.PieView
+                            android:id="@+id/pieChart2"
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.constraint.ConstraintLayout>
+</layout>
+

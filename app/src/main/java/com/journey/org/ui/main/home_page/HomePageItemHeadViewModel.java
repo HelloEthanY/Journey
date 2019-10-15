@@ -25,7 +25,7 @@ public class HomePageItemHeadViewModel extends MultiItemViewModel<HomePageViewMo
     }
 
     private void loadData(HomePageViewModel viewModel, Application application) {
-        items.add(new HomePageItemHeadItemViewModel(viewModel, "攻略", ContextCompat.getDrawable(application, R.mipmap.ic_home_tourism)));
+        items.add(new HomePageItemHeadItemViewModel(viewModel, "攻略", ContextCompat.getDrawable(application, R.mipmap.ic_app_defalt)));
         items.add(new HomePageItemHeadItemViewModel(viewModel, "订酒店", ContextCompat.getDrawable(application, R.mipmap.ic_home_hotel)));
         items.add(new HomePageItemHeadItemViewModel(viewModel, "美食", ContextCompat.getDrawable(application, R.mipmap.ic_home_foot)));
         items.add(new HomePageItemHeadItemViewModel(viewModel, "游记", ContextCompat.getDrawable(application, R.mipmap.ic_home_travel)));

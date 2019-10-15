@@ -16,36 +16,26 @@ import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
 
 /**
- * toolbar
- *
  * @author 逍遥
- * @Date 2019/7/29
+ * @Date 2019/10/14
  */
-public class BaseToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> {
-
-    //兼容databinding，去泛型化
-    public BaseToolbarViewModel toolbarViewModel;
+public class BasePagerViewModel <M extends BaseModel> extends BaseViewModel<M> {
 
     public Drawable rightIcon;
 
-    public BaseToolbarViewModel(@NonNull Application application) {
-        this(application, null);
+    public BasePagerViewModel(@NonNull Application application) {
+        super(application);
+        rightIcon = ContextCompat.getDrawable(application, R.mipmap.ic_search);
     }
 
-    public BaseToolbarViewModel(@NonNull Application application, M model) {
-        super(application, model);
-        toolbarViewModel = this;
-        rightIcon = ContextCompat.getDrawable(application, R.mipmap.ic_round_menu);
-    }
-
-    // 菜单按钮点击事件回调
-    public SingleLiveEvent<Void> onClickMenuEvent = new SingleLiveEvent<>();
+    // toolbar 标题
+    public ObservableField<String> toolbarTitle = new ObservableField<>("出行");
     // 是否展示返回按钮
     public ObservableBoolean onShowFinish = new ObservableBoolean(true);
+    // 菜单按钮点击事件回调
+    public SingleLiveEvent<Void> onClickMenuEvent = new SingleLiveEvent<>();
     // 是否展示菜单按钮
     public ObservableBoolean onShowMenu = new ObservableBoolean(true);
-    // toolbar 标题
-    public ObservableField<String> toolbarTitle = new ObservableField<>();
     // 点击结束按钮
     public BindingCommand onClickFinishCommand = new BindingCommand(new BindingAction() {
         @Override
@@ -79,5 +69,11 @@ public class BaseToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> 
     // 修改右边展示图标
     public void setRightIconMenu(Drawable drawable) {
         this.rightIcon = drawable;
+    }
+
+    public void initToolbar(String title, boolean isShowFinish, boolean isShowMenu) {
+        onShowFinish.set(isShowFinish);
+        onShowMenu.set(isShowMenu);
+        toolbarTitle.set(title);
     }
 }
