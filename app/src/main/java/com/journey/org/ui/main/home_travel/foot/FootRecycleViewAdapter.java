@@ -15,7 +15,7 @@ public class FootRecycleViewAdapter extends BindingRecyclerViewAdapter<FootItemV
         if (item.index % 2 == 0) {
             _binding.footDetail.setText("该美食城简介：主要有那些店铺卖那些美食，主要有那些店铺卖那些美食，主要有那些店铺卖那些美食，主要有那些店铺卖那些美食");
         } else {
-            _binding.footDetail.setText(Html.fromHtml("3.5km   西式快餐<br/>人均价<font color=#00cc33>￥29</font>"));
+            _binding.footDetail.setText(Html.fromHtml("3.5km   西式快餐<br/>人均价<font color=#FF0000>￥29</font>"));
         }
     }
 }

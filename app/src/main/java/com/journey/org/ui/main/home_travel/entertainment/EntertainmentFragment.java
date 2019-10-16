@@ -12,14 +12,15 @@ import com.journey.org.databinding.FragmentTravelEntertainmentBinding;
 
 /**
  * 娱乐
+ *
  * @author 逍遥
  * @Date 2019/10/15
- *
  */
-public class EntertainmentFragment extends BaseLazyFragment<FragmentTravelEntertainmentBinding,EntertainmentViewModel> {
+public class EntertainmentFragment extends BaseLazyFragment<FragmentTravelEntertainmentBinding, EntertainmentViewModel> {
     @Override
     protected void lazyLoadData() {
-        
+        binding.setAdapter(new EntertainmentRecycleViewAdapter());
+        viewModel.requesst();
     }
 
     @Override
@@ -30,5 +31,12 @@ public class EntertainmentFragment extends BaseLazyFragment<FragmentTravelEntert
     @Override
     public int initVariableId() {
         return BR.viewModel;
+    }
+
+
+    @Override
+    public void initViewObservable() {
+        super.initViewObservable();
+
     }
 }
