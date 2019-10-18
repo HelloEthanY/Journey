@@ -6,4 +6,5 @@
     <dimen name="scenic_view_title_width">10dp</dimen>
     <dimen name="CardView_cardCornerRadius">5dp</dimen>
     <dimen name="CardView_cardElevation">5dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

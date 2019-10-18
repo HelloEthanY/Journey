@@ -30,7 +30,7 @@ ext {
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion '28.0.2'
+   // buildToolsVersion '28.0.2'
 
     defaultConfig {
         minSdkVersion rootProject.ext.jjdxm_minSdkVersion

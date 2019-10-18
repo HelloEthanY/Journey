@@ -119,4 +119,15 @@ super.onCreate(savedInstanceState); 之前设置     getWindow().setBackgroundDr
         <item name="textAllCaps">false</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--三维地图进程 冷启动效果Style-->
+    <style name="StartSkyline" parent="AppTheme">
+        <item name="android:statusBarColor">@color/colorTran</item>
+        <!--设置背景图片-->
+        <item name="android:windowBackground">@mipmap/ic_loading_skyline</item>
+    </style>
+
 </resources>

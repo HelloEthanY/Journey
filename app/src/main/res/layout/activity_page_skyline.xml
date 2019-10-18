@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.journey.org.ui.main.home_technology.page_skyline.PageSkylineViewModel" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.skyline.terraexplorer.views.TEView
+            android:id="@+id/te_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/layout_nav"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/ic_loading_skyline"
+            android:gravity="center"
+            android:text="初始化三维引擎..."
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--加载html-->
+        <WebView
+            android:id="@+id/web_skyline"
+            android:layout_width="350dp"
+            android:layout_height="match_parent"
+            android:elevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/layout_nav"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </WebView>
+        <!--导航-->
+        <LinearLayout
+            android:id="@+id/layout_nav"
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:background="#0A403B"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="信鸽招商系统"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/skyline_page"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginTop="10dp"
+                android:button="@null"
+                android:gravity="center"
+                android:text="首页"
+                android:textColor="#64CEDC"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:button="@null"
+                android:gravity="center"
+                android:text="办公场所"
+                android:textColor="#64CEDC"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:button="@null"
+                android:gravity="center"
+                android:text="个人中心"
+                android:textColor="#64CEDC"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</layout>
+
+

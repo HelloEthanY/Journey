@@ -20,6 +20,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.base.BaseViewModel;
 import me.goldze.mvvmhabit.base.MultiItemViewModel;
+import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
 import me.goldze.mvvmhabit.utils.RxUtils;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -36,6 +37,8 @@ public class HomeTechnologyViewModel extends BaseViewModel {
         super(application);
         initItemData(application);
     }
+
+    public SingleLiveEvent<String> onBodyItemClick = new SingleLiveEvent<>();
 
     /***************************************顶部viewPager******************************************/
     // ViewPager 的数据集合
@@ -66,24 +69,12 @@ public class HomeTechnologyViewModel extends BaseViewModel {
         items.add(headerViewModel);
         // 首页体布局数据
         MultiItemViewModel hotelViewModel = new HomeTechnologyItemViewModel(this,
-                "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=27495044,3539569886&fm=26&gp=0.jpg");
+                "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=27495044,3539569886&fm=26&gp=0.jpg",
+                "信鸽三维地图",
+                "测试使用webView加载html和Android的skyline共同使用开发");
         hotelViewModel.multiItemType(TECHNOLOGY_BODY);
         items.add(hotelViewModel);
 
-        MultiItemViewModel groceryViewModel = new HomeTechnologyItemViewModel(this,
-                "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1981636719,1972835883&fm=26&gp=0.jpg");
-        groceryViewModel.multiItemType(TECHNOLOGY_BODY);
-        items.add(groceryViewModel);
-
-        MultiItemViewModel snacksViewModel = new HomeTechnologyItemViewModel(this,
-                "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3563365738,1288177324&fm=26&gp=0.jpg");
-        snacksViewModel.multiItemType(TECHNOLOGY_BODY);
-        items.add(snacksViewModel);
-
-        MultiItemViewModel storeViewModel = new HomeTechnologyItemViewModel(this,
-                "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1560594871,3464168313&fm=26&gp=0.jpg");
-        storeViewModel.multiItemType(TECHNOLOGY_BODY);
-        items.add(storeViewModel);
     }
 
     // 得到banner 的数据

@@ -13,6 +13,7 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.skyline.terraexplorer.TEApp;
 
 import me.goldze.mvvmhabit.base.BaseApplication;
 import me.goldze.mvvmhabit.crash.CaocConfig;
@@ -36,6 +37,8 @@ public class JourneyApplication extends BaseApplication {
         initMVVMHabit();
         // 初始化百度地图
         initBaiduMap();
+        // 初始化 信鸽三维地图
+        TEApp.init(this);
     }
 
     // 初始化百度地图

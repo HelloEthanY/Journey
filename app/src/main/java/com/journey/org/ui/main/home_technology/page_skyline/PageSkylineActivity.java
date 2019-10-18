@@ -1,46 +1,36 @@
-package com.journey.org.ui.main.home_technology.page_chart.web_chart;
+package com.journey.org.ui.main.home_technology.page_skyline;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
-import android.webkit.ValueCallback;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.journey.org.BR;
 import com.journey.org.R;
-import com.journey.org.app.base.BaseLazyFragment;
-import com.journey.org.databinding.FragmentWebChartBinding;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.journey.org.BR;
+import com.journey.org.app.skyline.BaseSkylineActivity;
+import com.journey.org.databinding.ActivityPageSkylineBinding;
+import com.skyline.teapi.ApiException;
+import com.skyline.terraexplorer.models.UI;
 
 import me.goldze.mvvmhabit.utils.KLog;
 
-/**
- * 引入webView 来加载 eCharts（网页版的图表）
- *
- * @author 逍遥
- * @Date 2019/10/14
- */
-public class WebChartFragment extends BaseLazyFragment<FragmentWebChartBinding, WebChartViewModel> {
+public class PageSkylineActivity extends BaseSkylineActivity<ActivityPageSkylineBinding, PageSkylineViewModel> {
+
     private WebView mWebView;
     private WebSettings webSettings;
     private String url;
 
-
     @Override
-    public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return R.layout.fragment_web_chart;
+    public int initContentView(Bundle savedInstanceState) {
+        return R.layout.activity_page_skyline;
     }
 
     @Override
@@ -48,51 +38,24 @@ public class WebChartFragment extends BaseLazyFragment<FragmentWebChartBinding, 
         return BR.viewModel;
     }
 
+    @Override
+    public void initViewObservable() {
+        super.initViewObservable();
+
+    }
 
     @Override
-    protected void lazyLoadData() {
-        url = "file:///android_asset/web/echarts.html";
-        mWebView = binding.webChart;
+    public void initData() {
+        super.initData();
+        url = "file:///android_asset/web/skyline/merchant_home_page.html";
+        // url = "http://localhost:63342/StudyCSSProject/merchant_home_page.html";
+        mWebView = binding.webSkyline;
         webSettings = mWebView.getSettings();
-
         initSettings();
         if (!TextUtils.isEmpty(url)) {
             mWebView.loadUrl(url);
         }
         initWebView();
-    }
-
-    @Override
-    public void initViewObservable() {
-        super.initViewObservable();
-        binding.btnTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject result = new JSONObject();
-                try {
-                    result.put("result", "this is webChart data");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                final String s = result.toString();
-                // 大于等于 Android api 19
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    mWebView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mWebView.evaluateJavascript("loadWebChartData(" + s + ")", new ValueCallback<String>() {
-                                @Override
-                                public void onReceiveValue(String value) {
-
-                                }
-                            });
-                        }
-                    });
-                } else {
-                    mWebView.loadUrl("javascript:loadWebChartData(" + s + ")");
-                }
-            }
-        });
     }
 
     // 初始化webView
@@ -104,20 +67,12 @@ public class WebChartFragment extends BaseLazyFragment<FragmentWebChartBinding, 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 KLog.e(url);
-//                Bundle bundle = new Bundle();
-//                bundle.putString(GlobalKey.URL, url);
-//                bundle.putString(GlobalKey.TITLE, "正在加载...");
-//                startActivity(WebViewActivity.class, bundle);
                 view.loadUrl(url);
                 return true;
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
-               /* String title = view.getTitle();
-                if (title != null) {
-                     viewModel.setTitleText(title);
-                }*/
             }
         });
     }
@@ -154,7 +109,53 @@ public class WebChartFragment extends BaseLazyFragment<FragmentWebChartBinding, 
     }
 
     @Override
-    public void onResume() {
+    protected void onBeforeLoad() {
+        KLog.e("初始化三维引擎...");
+        binding.tvLoading.setText("初始化三维引擎...");
+    }
+
+    @Override
+    protected void onLoading() {
+        KLog.e("开始加载...");
+        binding.tvLoading.setText("开始加载...");
+    }
+
+    @Override
+    protected void onLoadFinish() {
+        KLog.e("加载成功");
+        binding.tvLoading.setVisibility(View.GONE);
+        UI.runOnRenderThreadAsync(new Runnable() {
+            @Override
+            public void run() {
+                helper.flyDefaultPoint();
+            }
+        });
+    }
+
+    @Override
+    protected void onLoadFail(ApiException e) {
+        KLog.e("加载失败");
+        binding.tvLoading.setText("加载失败");
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //退出杀死当前进程
+            android.os.Process.killProcess(android.os.Process.myPid());
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void finish() {
+        android.os.Process.killProcess(android.os.Process.myPid());
+        super.finish();
+    }
+
+    @Override
+    protected void onResume() {
         super.onResume();
         if (webSettings != null) {
             webSettings.setJavaScriptEnabled(true);
@@ -162,7 +163,7 @@ public class WebChartFragment extends BaseLazyFragment<FragmentWebChartBinding, 
     }
 
     @Override
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
         if (webSettings != null) {
             webSettings.setJavaScriptEnabled(false);
@@ -170,7 +171,7 @@ public class WebChartFragment extends BaseLazyFragment<FragmentWebChartBinding, 
     }
 
     @Override
-    public void onDestroy() {
+    protected void onDestroy() {
         // 防止内存泄漏
         if (mWebView != null) {
             mWebView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
@@ -181,4 +182,5 @@ public class WebChartFragment extends BaseLazyFragment<FragmentWebChartBinding, 
         }
         super.onDestroy();
     }
+
 }

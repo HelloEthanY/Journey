@@ -22,7 +22,7 @@
     <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--相机权限-->
+    <!-- 相机权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -35,6 +35,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <!-- 百度地图 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -70,7 +71,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--景区详情-->
+        <!-- 景区详情 -->
         <activity
             android:name=".ui.main.home_page.page_detail.PageDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -89,11 +90,25 @@
             android:name=".ui.main.home_page.city.CitySelectActivity"
             android:screenOrientation="${orientation}"
             android:theme="@style/DefaultCityPickerTheme" />
-        <!--地理信息服务-->
+        <!-- 地理信息服务 -->
         <service
             android:name=".app.service.LocationInfoService"
             android:enabled="true"
             android:exported="true" />
+        <!--设置新进程-->
+        <activity
+            android:name=".ui.main.home_technology.page_skyline.PageSkylineActivity"
+            android:process=":skyline_journey_two"
+            android:screenOrientation="landscape"
+            android:theme="@style/StartSkyline" />
+
+        <!-- 信鸽三维地图 -->
+        <activity
+            android:name=".app.skyline.SkylineContainerActivity"
+            android:process=":skyline_journey_one"
+            android:screenOrientation="${orientation}"
+            android:theme="@style/StartSkyline" />
+
     </application>
 
 </manifest>

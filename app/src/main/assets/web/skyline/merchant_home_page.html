@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="echarts.min.js"></script>
+
+    <style>
+
+        body, .home-page-wrapper {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(40, 79, 79, 0.5);
+        }
+
+        .home-page-header {
+            width: 100%;
+            background-color: rgba(40, 79, 79, 0.5);
+            height: 150px;
+            line-height: 150px;
+            font-style: italic;
+            text-align: center;
+            font-size: 40px;
+            font-family: 方正姚体;
+        }
+
+        .home-page-header span {
+            color: white;
+            text-shadow: 5px 5px 5px #64CEDC, 0px 0px 2px #64CEDC;
+        }
+
+        /*信息管理*/
+        .page-info-manager {
+            height: 350px;
+            width: 100%;
+            background-color: rgba(40, 79, 79, 0);
+        }
+
+        .page-info-manager h4 {
+            color: #64CEDC;
+            margin-left: 10px;
+            line-height: 50px;
+            width: 150px;
+            height: 50px;
+            border-bottom: 1px solid #64CEDC;
+        }
+
+        .page-info-manager .info-detail {
+            height: 280px;
+            width: 96%;
+            margin: 0 2%;
+            border-radius: 10px;
+            border: 2px solid white;
+        }
+
+        .page-info-manager .info-detail table {
+            width: 100%;
+            height: 88%;
+        }
+
+        .page-info-manager .info-detail table thead tr {
+            font-size: 20px;
+            color: #64CEDC;
+        }
+
+        .page-info-manager .info-detail table tbody tr {
+            font-size: 18px;
+            color: white;
+        }
+
+        .page-info-manager .info-detail .info-detail-more {
+            height: 12%;
+            width: 97%;
+            color: #64CEDC;
+            text-align: right;
+            font-size: 20px;
+        }
+
+        /*洽谈信息*/
+        .page-negotiation-info {
+            background-color: rgba(40, 79, 79, 0);
+            height: 330px;
+            width: 100%;
+        }
+
+        .page-negotiation-info h4 {
+            color: #64CEDC;
+            margin-left: 10px;
+            line-height: 50px;
+            width: 120px;
+            height: 50px;
+            border-bottom: 2px solid #64CEDC;
+        }
+
+        .page-negotiation-info .negotiation-info-detail {
+            height: 260px;
+            width: 96%;
+            margin: 0 2%;
+            border-radius: 5px;
+            border: 1px solid white;
+        }
+
+        .page-negotiation-info .negotiation-info-detail table {
+            width: 100%;
+            height: 88%;
+        }
+
+        .page-negotiation-info .negotiation-info-detail table thead tr {
+            font-size: 20px;
+            color: #64CEDC;
+        }
+
+        .page-negotiation-info .negotiation-info-detail table tbody tr {
+            font-size: 18px;
+            color: white;
+        }
+
+        .page-negotiation-info .negotiation-info-detail .info-detail-more {
+            height: 12%;
+            width: 97%;
+            color: #64CEDC;
+            text-align: right;
+            font-size: 20px;
+        }
+
+        /*数据分析*/
+        .page-data-analysis {
+            background-color: rgba(40, 79, 79, 0);
+            height: 720px;
+            width: 100%;
+        }
+
+        .page-data-analysis h4 {
+            color: #64CEDC;
+            margin-left: 10px;
+            line-height: 50px;
+            width: 150px;
+            height: 50px;
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="home-page-wrapper">
+    <div class="home-page-header">
+        <span>信鸽招商系统</span>
+    </div>
+    <!--信息管理-->
+    <div class="page-info-manager">
+        <h4>信息管理</h4>
+        <div class="info-detail">
+            <table cellspacing="0" cellpadding="6">
+                <thead>
+                <tr align="center">
+                    <th>名称</th>
+                    <th>类别</th>
+                    <th>乙方公司</th>
+                    <th>协调部门</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr align="center">
+                    <td>丰田数据中心</td>
+                    <td>电子信息制造</td>
+                    <td>丰田公司</td>
+                    <td>开投公司</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="info-detail-more">
+                更多...
+            </div>
+        </div>
+    </div>
+
+    <!--洽谈信息-->
+    <div class="page-negotiation-info">
+        <h4>洽谈信息</h4>
+        <div class="negotiation-info-detail">
+            <table align="center" cellspacing="0" cellpadding="6">
+                <thead>
+                <tr align="center">
+                    <th>名称</th>
+                    <th>类别</th>
+                    <th>乙方公司</th>
+                    <th>协调部门</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr align="center">
+                    <td>丰田数据中心</td>
+                    <td>电子信息制造</td>
+                    <td>丰田公司</td>
+                    <td>开投公司</td>
+                </tr>
+                <tr align="center">
+                    <td>小红</td>
+                    <td>96</td>
+                    <td>100</td>
+                    <td>99</td>
+                </tr>
+                <tr align="center">
+                    <td>小张</td>
+                    <td>54</td>
+                    <td>23</td>
+                    <td>19</td>
+                </tr>
+                <tr align="center">
+                    <td>小张</td>
+                    <td>54</td>
+                    <td>23</td>
+                    <td>19</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="info-detail-more">
+                更多...
+            </div>
+        </div>
+    </div>
+
+    <div class="page-data-analysis">
+        <h4>数据分析</h4>
+        <div id="pieChart" style="width: 96%;height:320px;padding: 0 2%">
+
+        </div>
+        <div id="barChart" style="width: 100%;height:320px;">
+
+        </div>
+    </div>
+
+</div>
+</body>
+
+<script>
+    drawPieChart();
+    drawBarChart();
+
+    // 绘制饼状图
+    function drawPieChart() {
+        var pieChart = echarts.init(document.getElementById('pieChart'));
+        var option = {
+
+            title: {
+                text: '饼状图',
+                x: 'left',
+                textStyle: {
+                    color: '#FFFFFF'
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: { // 设置label
+                orient: 'vertical',
+                left: 'right',
+                data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
+                textStyle: {
+                    color: '#FFFFFF'
+                }
+            },
+            series: [ // 设置数据
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '50%',
+                    center: ['45%', '55%'],
+                    label: {
+                        normal: {
+                            show: true,//是否显示标签
+                            //// 标签的位置。'outside'饼图扇区外侧，通过视觉引导线连到相应的扇区。'inside','inner' 同 'inside',饼图扇区内部。'center'在饼图中心位置。
+                            position: 'left',
+                            //显示的标签的内容
+                            //a（系列名称），b（数据项名称），c（数值）, d（百分比）
+                            formatter: "{b}:\n{c}({d}%)",  // ![在这里插入图片描述](https://img-blog.csdn.net/2018101313580390?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5MzI3NDE4/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+                        },
+                    },
+                    data: [
+                        {value: 335, name: '直接访问'},
+                        {value: 300, name: '邮件营销'},
+                        {value: 500, name: '联盟广告'},
+                        {value: 400, name: '视频广告'},
+                        {value: 1548, name: '搜索引擎'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        pieChart.setOption(option);
+    }
+
+    // 绘制柱状图
+    function drawBarChart() {
+        var firstData = [5, 20, 36, 10, 10, 20];
+        // 第二类数据
+        var secondData = [5, 20, 36, 50, 20, 20];
+        var myChart = echarts.init(document.getElementById("barChart"));
+        var option = {
+            textStyle: {
+                color: '#FFFFFF'
+            },
+            title: {
+                text: '柱状图',
+                textStyle: {
+                    color: '#FFFFFF'
+                }
+            },
+            tooltip: {},
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true // 设置展示label
+            },
+            legend: {// 设置label
+                orient: 'vertical',
+                left: 'right',
+                data: ['销量', '流量'],
+                textStyle: {
+                    color: '#FFFFFF'
+                }
+            },
+            xAxis: {
+                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
+                nameTextStyle: {
+                    color: '#FFFFFF'
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#FFFFFF'
+                    }
+                }
+            },
+            yAxis: {
+                nameTextStyle: {
+                    color: '#FFFFFF'
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#FFFFFF'
+                    }
+                }
+            },
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: firstData
+            }, {
+                name: '流量',
+                type: 'bar',
+                data: secondData
+            }]
+        };
+        myChart.setOption(option);
+    }
+
+</script>
+
+</html>
