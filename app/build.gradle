@@ -83,6 +83,8 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     // implementation project(':MPChartLib')
     implementation project(':skyline')
+    // 混合开发框架
+    implementation 'com.github.lzyzsd:jsbridge:1.0.4'
 }
 //获取当前时间
 def static buildTime() {

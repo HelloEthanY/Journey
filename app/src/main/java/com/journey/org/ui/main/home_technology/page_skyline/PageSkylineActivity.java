@@ -12,7 +12,12 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RadioGroup;
 
+import com.github.lzyzsd.jsbridge.BridgeHandler;
+import com.github.lzyzsd.jsbridge.BridgeWebView;
+import com.github.lzyzsd.jsbridge.CallBackFunction;
+import com.github.lzyzsd.jsbridge.DefaultHandler;
 import com.journey.org.R;
 import com.journey.org.BR;
 import com.journey.org.app.skyline.BaseSkylineActivity;
@@ -21,11 +26,11 @@ import com.skyline.teapi.ApiException;
 import com.skyline.terraexplorer.models.UI;
 
 import me.goldze.mvvmhabit.utils.KLog;
+import me.goldze.mvvmhabit.utils.ToastUtils;
 
 public class PageSkylineActivity extends BaseSkylineActivity<ActivityPageSkylineBinding, PageSkylineViewModel> {
 
-    private WebView mWebView;
-    private WebSettings webSettings;
+    private BridgeWebView mWebView;
     private String url;
 
     @Override
@@ -41,71 +46,78 @@ public class PageSkylineActivity extends BaseSkylineActivity<ActivityPageSkyline
     @Override
     public void initViewObservable() {
         super.initViewObservable();
+        //导航栏点击事件
+        binding.layoutSkylineNav.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                switch (checkedId) {
+                    case R.id.skyline_page:
+                        url = "file:///android_asset/web/skyline/merchant_home_page.html";
+                        mWebView.loadUrl(url);
+                        ToastUtils.showShort("首页");
+                        break;
 
+                    case R.id.skyline_classification:
+                        url = "file:///android_asset/web/echarts.html";
+                        mWebView.loadUrl(url);
+                        ToastUtils.showShort("地块分类");
+                        break;
+
+                    case R.id.skyline_land:
+                        ToastUtils.showShort("项目用地");
+                        break;
+
+                    case R.id.skyline_Plan:
+                        ToastUtils.showShort("规划单元");
+                        break;
+
+                    case R.id.skyline_personal:
+                        ToastUtils.showShort("个人中心");
+                        break;
+                }
+            }
+        });
+        /****************************** 这里是注册了由Android 调 JS 的方法****************************/
+        binding.skylineOffice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtils.showShort("办公场所");
+                mWebView.callHandler("dataToJs", "测数据001", new CallBackFunction() {
+                    @Override
+                    public void onCallBack(String data) {
+
+                    }
+                });
+            }
+        });
+        /********************************************结束*********************************************/
     }
+
+    /********************************* 这里是注册了由js调Android 的方法*******************************/
+    private void initRegisterHandler() {
+        mWebView.registerHandler("toast", // 方法名
+                new BridgeHandler() {
+                    @Override
+                    public void handler(String data, CallBackFunction function) {
+                        function.onCallBack("submitFromWeb exe, response data 中文 from Java");
+                        ToastUtils.showShort("js调用了Android 代码" + data);
+                    }
+                });
+    }
+
+    /********************************************结束*********************************************/
 
     @Override
     public void initData() {
         super.initData();
-        url = "file:///android_asset/web/skyline/merchant_home_page.html";
-        // url = "http://localhost:63342/StudyCSSProject/merchant_home_page.html";
         mWebView = binding.webSkyline;
-        webSettings = mWebView.getSettings();
-        initSettings();
+        url = "http://192.168.17.128:8080/";
+        mWebView.setDefaultHandler(new DefaultHandler());
+        mWebView.setBackgroundColor(0);
         if (!TextUtils.isEmpty(url)) {
             mWebView.loadUrl(url);
         }
-        initWebView();
-    }
-
-    // 初始化webView
-    @SuppressLint("JavascriptInterface")
-    private void initWebView() {
-        mWebView.setBackgroundColor(0);
-        mWebView.addJavascriptInterface(this, "androidObject");
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                KLog.e(url);
-                view.loadUrl(url);
-                return true;
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-            }
-        });
-    }
-
-    /**
-     * js 调用 Android的方法
-     *
-     * @return
-     */
-    @JavascriptInterface
-    public String loadWebChartData() {
-        Log.i("qcl0228", "js调用了安卓的方法");
-        return "我是js调用安卓获取的数据";
-    }
-
-    // 初始化 setting
-    private void initSettings() {
-        webSettings.setJavaScriptEnabled(true);//访问的页面与Javascript交互
-        //  mWebView.addJavascriptInterface(, "jsObj");
-        webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
-        webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-        webSettings.setAllowFileAccess(true); //设置可以访问文件
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true); // 支持通过JS打开新窗口
-        webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
-        webSettings.setBuiltInZoomControls(false); //设置是否可缩放，会出现缩放工具（若为true则上面的设值也默认为true）
-        webSettings.setDisplayZoomControls(false); //隐藏缩放工具
-        //设置优先使用缓存:
-        //缓存模式如下：
-        //LOAD_CACHE_ONLY: 不使用网络，只读取本地缓存数据
-        //LOAD_DEFAULT: （默认）根据cache-control决定是否从网络上取数据。
-        //LOAD_NO_CACHE: 不使用缓存，只从网络获取数据.
-        //LOAD_CACHE_ELSE_NETWORK，只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据。
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        initRegisterHandler();
     }
 
     @Override
@@ -155,22 +167,6 @@ public class PageSkylineActivity extends BaseSkylineActivity<ActivityPageSkyline
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (webSettings != null) {
-            webSettings.setJavaScriptEnabled(true);
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (webSettings != null) {
-            webSettings.setJavaScriptEnabled(false);
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         // 防止内存泄漏
         if (mWebView != null) {
@@ -182,5 +178,4 @@ public class PageSkylineActivity extends BaseSkylineActivity<ActivityPageSkyline
         }
         super.onDestroy();
     }
-
 }

@@ -72,34 +72,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
         // 初始化底部Tab
         initBottomTab();
 
-        // 6.0系统动态获取权限
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED
-                    || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED
-                    || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
-                    != PackageManager.PERMISSION_GRANTED
-                    || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED
-                    || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_WIFI_STATE)
-                    != PackageManager.PERMISSION_GRANTED
-                    || ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED
-                    || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
-                ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{
-                                Manifest.permission.ACCESS_COARSE_LOCATION,
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.READ_PHONE_STATE,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.ACCESS_WIFI_STATE,
-                                Manifest.permission.CAMERA,
-                                Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
-            }
-        }
     }
 
     /**

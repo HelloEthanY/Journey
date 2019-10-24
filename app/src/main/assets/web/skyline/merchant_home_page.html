@@ -33,22 +33,22 @@
 
         /*信息管理*/
         .page-info-manager {
-            height: 350px;
+            height: 400px;
             width: 100%;
             background-color: rgba(40, 79, 79, 0);
         }
 
-        .page-info-manager h4 {
+        .page-info-manager h1 {
             color: #64CEDC;
-            margin-left: 10px;
-            line-height: 50px;
-            width: 150px;
-            height: 50px;
-            border-bottom: 1px solid #64CEDC;
+            margin-left: 20px;
+            line-height: 80px;
+            width: 200px;
+            height: 80px;
+            border-bottom: 2px solid #64CEDC;
         }
 
         .page-info-manager .info-detail {
-            height: 280px;
+            height: 300px;
             width: 96%;
             margin: 0 2%;
             border-radius: 10px;
@@ -61,12 +61,12 @@
         }
 
         .page-info-manager .info-detail table thead tr {
-            font-size: 20px;
+            font-size: 24px;
             color: #64CEDC;
         }
 
         .page-info-manager .info-detail table tbody tr {
-            font-size: 18px;
+            font-size: 21px;
             color: white;
         }
 
@@ -75,27 +75,27 @@
             width: 97%;
             color: #64CEDC;
             text-align: right;
-            font-size: 20px;
+            font-size: 24px;
         }
 
         /*洽谈信息*/
         .page-negotiation-info {
             background-color: rgba(40, 79, 79, 0);
-            height: 330px;
+            height: 400px;
             width: 100%;
         }
 
-        .page-negotiation-info h4 {
+        .page-negotiation-info h1 {
             color: #64CEDC;
-            margin-left: 10px;
-            line-height: 50px;
-            width: 120px;
-            height: 50px;
+            margin-left: 20px;
+            line-height: 80px;
+            width: 200px;
+            height: 80px;
             border-bottom: 2px solid #64CEDC;
         }
 
         .page-negotiation-info .negotiation-info-detail {
-            height: 260px;
+            height: 300px;
             width: 96%;
             margin: 0 2%;
             border-radius: 5px;
@@ -108,12 +108,12 @@
         }
 
         .page-negotiation-info .negotiation-info-detail table thead tr {
-            font-size: 20px;
+            font-size: 24px;
             color: #64CEDC;
         }
 
         .page-negotiation-info .negotiation-info-detail table tbody tr {
-            font-size: 18px;
+            font-size: 21px;
             color: white;
         }
 
@@ -122,7 +122,7 @@
             width: 97%;
             color: #64CEDC;
             text-align: right;
-            font-size: 20px;
+            font-size: 24px;
         }
 
         /*数据分析*/
@@ -132,14 +132,14 @@
             width: 100%;
         }
 
-        .page-data-analysis h4 {
+        .page-data-analysis h1 {
             color: #64CEDC;
-            margin-left: 10px;
-            line-height: 50px;
-            width: 150px;
-            height: 50px;
+            margin-left: 20px;
+            line-height: 80px;
+            width: 200px;
+            height: 80px;
+            border-bottom: 2px solid #64CEDC;
         }
-
     </style>
 
 </head>
@@ -150,7 +150,7 @@
     </div>
     <!--信息管理-->
     <div class="page-info-manager">
-        <h4>信息管理</h4>
+        <h1>信息管理</h1>
         <div class="info-detail">
             <table cellspacing="0" cellpadding="6">
                 <thead>
@@ -170,7 +170,7 @@
                 </tr>
                 </tbody>
             </table>
-            <div class="info-detail-more">
+            <div class="info-detail-more" onclick="PageSkylineJs.lockMoreInfoManager()">
                 更多...
             </div>
         </div>
@@ -178,7 +178,7 @@
 
     <!--洽谈信息-->
     <div class="page-negotiation-info">
-        <h4>洽谈信息</h4>
+        <h1>洽谈信息</h1>
         <div class="negotiation-info-detail">
             <table align="center" cellspacing="0" cellpadding="6">
                 <thead>
@@ -216,14 +216,14 @@
                 </tr>
                 </tbody>
             </table>
-            <div class="info-detail-more">
+            <div class="info-detail-more" onclick="PageSkylineJs.lockMoreNegotiationInfo()">
                 更多...
             </div>
         </div>
     </div>
 
     <div class="page-data-analysis">
-        <h4>数据分析</h4>
+        <h1>数据分析</h1>
         <div id="pieChart" style="width: 96%;height:320px;padding: 0 2%">
 
         </div>
@@ -238,7 +238,6 @@
 <script>
     drawPieChart();
     drawBarChart();
-
     // 绘制饼状图
     function drawPieChart() {
         var pieChart = echarts.init(document.getElementById('pieChart'));
@@ -248,7 +247,8 @@
                 text: '饼状图',
                 x: 'left',
                 textStyle: {
-                    color: '#FFFFFF'
+                    color: '#FFFFFF',
+                    fontSize:'22'
                 }
             },
             tooltip: {
@@ -260,7 +260,8 @@
                 left: 'right',
                 data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
                 textStyle: {
-                    color: '#FFFFFF'
+                    color: '#FFFFFF',
+                    fontSize: 18
                 }
             },
             series: [ // 设置数据
@@ -274,6 +275,7 @@
                             show: true,//是否显示标签
                             //// 标签的位置。'outside'饼图扇区外侧，通过视觉引导线连到相应的扇区。'inside','inner' 同 'inside',饼图扇区内部。'center'在饼图中心位置。
                             position: 'left',
+                            fontSize: 18, // 修改字体大小
                             //显示的标签的内容
                             //a（系列名称），b（数据项名称），c（数值）, d（百分比）
                             formatter: "{b}:\n{c}({d}%)",  // ![在这里插入图片描述](https://img-blog.csdn.net/2018101313580390?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5MzI3NDE4/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
@@ -312,7 +314,8 @@
             title: {
                 text: '柱状图',
                 textStyle: {
-                    color: '#FFFFFF'
+                    color: '#FFFFFF',
+                    fontSize:22
                 }
             },
             tooltip: {},
@@ -327,23 +330,30 @@
                 left: 'right',
                 data: ['销量', '流量'],
                 textStyle: {
-                    color: '#FFFFFF'
+                    color: '#FFFFFF',
+                    fontSize:18
                 }
             },
             xAxis: {
                 data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
                 nameTextStyle: {
-                    color: '#FFFFFF'
+                    color: '#FFFFFF',
+                    fontSize:20
                 },
                 axisLine: {
                     lineStyle: {
                         color: '#FFFFFF'
                     }
-                }
+                },
+                 axisLabel: {// 修改x轴字体大小
+                    color: '#FFFFFF',
+                    fontSize: 20
+                },
             },
             yAxis: {
                 nameTextStyle: {
-                    color: '#FFFFFF'
+                    color: '#FFFFFF',
+                    fontSize:20
                 },
                 axisLine: {
                     lineStyle: {
@@ -364,6 +374,41 @@
         myChart.setOption(option);
     }
 
+function connectWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge)
+            } else {
+                document.addEventListener(
+                    'WebViewJavascriptBridgeReady'
+                    , function() {
+                        callback(WebViewJavascriptBridge)
+                    },
+                    false
+                );
+            }
+        }
+
+        connectWebViewJavascriptBridge(function(bridge) {
+            bridge.init(function(message, responseCallback) {
+                console.log('JS got a message', message);
+                var data = {
+                    'Javascript Responds': '测试中文!'
+                };
+
+                if (responseCallback) {
+                    console.log('JS responding with', data);
+                    responseCallback(data);
+                }
+            });
+
+            bridge.registerHandler("functionInJs", function(data, responseCallback) {
+                document.getElementById("show").innerHTML = ("data from Java: = " + data);
+                if (responseCallback) {
+                    var responseData = "Javascript Says Right back aka!";
+                    responseCallback(responseData);
+                }
+            });
+        })
 </script>
 
 </html>
