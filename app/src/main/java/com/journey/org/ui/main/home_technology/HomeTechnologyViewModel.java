@@ -68,13 +68,18 @@ public class HomeTechnologyViewModel extends BaseViewModel {
         headerViewModel.multiItemType(TECHNOLOGY_HEAD);
         items.add(headerViewModel);
         // 首页体布局数据
-        MultiItemViewModel hotelViewModel = new HomeTechnologyItemViewModel(this,
+        MultiItemViewModel skylineViewModel = new HomeTechnologyItemViewModel(this,
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=27495044,3539569886&fm=26&gp=0.jpg",
                 "信鸽三维地图",
-                "测试使用webView加载html和Android的skyline共同使用开发");
-        hotelViewModel.multiItemType(TECHNOLOGY_BODY);
-        items.add(hotelViewModel);
-
+                "测试使用BridgeWebView加载vue和Android的skyline共同使用开发");
+        skylineViewModel.multiItemType(TECHNOLOGY_BODY);
+        items.add(skylineViewModel);
+        MultiItemViewModel bridgeViewModel = new HomeTechnologyItemViewModel(this,
+                "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=27495044,3539569886&fm=26&gp=0.jpg",
+                "android-js混合开发",
+                "测试使用BridgeWebView加载本地html和Android的共同使用开发");
+        bridgeViewModel.multiItemType(TECHNOLOGY_BODY);
+        items.add(bridgeViewModel);
     }
 
     // 得到banner 的数据

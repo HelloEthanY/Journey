@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.journey.org.app.skyline.SkylineContainerActivity;
+import com.journey.org.ui.main.home_technology.page_bridge.PageBridgeActivity;
 import com.journey.org.ui.main.home_technology.page_skyline.PageSkylineFragment;
 
 import me.goldze.mvvmhabit.base.ContainerActivity;
@@ -39,6 +40,10 @@ public class HomeTechnologyItemViewModel extends MultiItemViewModel<HomeTechnolo
             switch (name) {
                 case "信鸽三维地图":
                     viewModel.onBodyItemClick.setValue(name);
+                    break;
+
+                case "android-js混合开发":
+                    viewModel.startActivity(PageBridgeActivity.class);
                     break;
             }
         }

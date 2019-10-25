@@ -22,7 +22,7 @@ super.onCreate(savedInstanceState); 之前设置     getWindow().setBackgroundDr
 的背景图设置为空 -->
     <!--欢迎界面的样式-->
     <style name="SplashStyle" parent="AppTheme">
-        <item name="android:windowBackground">@mipmap/ic_splash_bg</item>
+        <item name="android:windowBackground">@mipmap/ic_app_splash</item>
         <item name="android:statusBarColor">@color/colorTran</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
@@ -129,5 +129,4 @@ super.onCreate(savedInstanceState); 之前设置     getWindow().setBackgroundDr
         <!--设置背景图片-->
         <item name="android:windowBackground">@mipmap/ic_loading_skyline</item>
     </style>
-
 </resources>

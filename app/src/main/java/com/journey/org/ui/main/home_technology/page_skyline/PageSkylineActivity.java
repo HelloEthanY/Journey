@@ -95,7 +95,7 @@ public class PageSkylineActivity extends BaseSkylineActivity<ActivityPageSkyline
 
     /********************************* 这里是注册了由js调Android 的方法*******************************/
     private void initRegisterHandler() {
-        mWebView.registerHandler("toast", // 方法名
+        mWebView.registerHandler("dataToAndroid", // 方法名
                 new BridgeHandler() {
                     @Override
                     public void handler(String data, CallBackFunction function) {

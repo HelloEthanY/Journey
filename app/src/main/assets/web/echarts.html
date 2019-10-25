@@ -20,6 +20,13 @@
             background-color:rgba(0,152,50,0.5);
         }
 
+
+
+
+
+
+
+
     </style>
     <script>
 
@@ -32,8 +39,11 @@
 </div>
 
 <div class="echart-item">
-    <button onclick="loadAndroidData()">点击获取数据</button>
-    <button onclick="loadAndroidData()">点击获取数据</button>
+    <p>
+        <xmp id="show">
+        </xmp>
+    </p>
+    <button onclick="toAndroidFun()">点击调用Android方法</button>
 </div>
 <script type="text/javascript">
     loadAndroidData();
@@ -61,14 +71,55 @@
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 
-    function loadAndroidData(){
-        // js 调用 Android 代码
-        window.androidObject.loadWebChartData();
+    function toAndroidFun() {
+            var str1 = document.getElementById("text1").value;
+            var str2 = document.getElementById("text2").value;
+
+            //call native method
+            window.WebViewJavascriptBridge.callHandler(
+                'dataToAndroid'
+                , {'param': '中文测试'}
+                , function(responseData) {
+                    document.getElementById("show").innerHTML = "send get responseData from java, data = " + responseData
+                }
+            );
     }
-    // 定义方法使Android 能调用该方法
-    function loadWebChartData(s){
-        alert("Android正在调用该方法...");
-    }
+
+    function connectWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge)
+            } else {
+                document.addEventListener(
+                    'WebViewJavascriptBridgeReady'
+                    , function() {
+                        callback(WebViewJavascriptBridge)
+                    },
+                    false
+                );
+            }
+        }
+
+        connectWebViewJavascriptBridge(function(bridge) {
+            bridge.init(function(message, responseCallback) {
+                console.log('JS got a message', message);
+                var data = {
+                    'Javascript Responds': '测试中文!'
+                };
+
+                if (responseCallback) {
+                    console.log('JS responding with', data);
+                    responseCallback(data);
+                }
+            });
+            // 注册由Android 调用js 方法
+            bridge.registerHandler("dataToJs", function(data, responseCallback) {
+                document.getElementById("show").innerHTML = ("data from Java: = " + data);
+                if (responseCallback) {
+                    var responseData = "Javascript Says Right back aka!";
+                    responseCallback(responseData);
+                }
+            });
+        })
 
 
 

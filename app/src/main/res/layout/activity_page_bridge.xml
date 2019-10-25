@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="me.goldze.mvvmhabit.base.BaseViewModel" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.home_technology.page_bridge.PageBridgeActivity">
+
+        <com.github.lzyzsd.jsbridge.BridgeWebView
+            android:id="@+id/bridge_webView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/layout_bridge_nav"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </com.github.lzyzsd.jsbridge.BridgeWebView>
+
+
+        <!--导航-->
+        <RadioGroup
+
+            android:id="@+id/layout_bridge_nav"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#072639"
+            android:elevation="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <RadioButton
+                android:id="@+id/bridge_page"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="首页\nHome Page"
+                android:textColor="#50C6E8"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/bridge_land"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="测试001\nProject Land"
+                android:textColor="#50C6E8"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/bridge_Plan"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="测试001\nPlanning Unit"
+                android:textColor="#50C6E8"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/bridge_personal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="个人中心\nPersonal Center"
+                android:textColor="#50C6E8"
+                android:textSize="12sp" />
+
+        </RadioGroup>
+    </android.support.constraint.ConstraintLayout>
+</layout>

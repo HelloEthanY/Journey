@@ -64,6 +64,7 @@
         <activity
             android:name=".ui.splash.SplashActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="${orientation}"
             android:theme="@style/SplashStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -95,7 +96,7 @@
             android:name=".app.service.LocationInfoService"
             android:enabled="true"
             android:exported="true" />
-        <!--设置新进程-->
+        <!-- 设置新进程 -->
         <activity
             android:name=".ui.main.home_technology.page_skyline.PageSkylineActivity"
             android:process=":skyline_journey_two"
@@ -108,7 +109,15 @@
             android:process=":skyline_journey_one"
             android:screenOrientation="${orientation}"
             android:theme="@style/StartSkyline" />
+        <activity
+            android:name=".ui.main.home_technology.page_bridge.PageBridgeActivity"
+            android:screenOrientation="${orientation}" />
 
+        <service
+            android:name=".app.service.WakeUpService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
 </manifest>
