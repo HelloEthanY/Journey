@@ -92,7 +92,6 @@ public class PageBridgeActivity extends BaseActivity<ActivityPageBridgeBinding, 
     }
     /********************************************结束*********************************************/
 
-
 }
 
 

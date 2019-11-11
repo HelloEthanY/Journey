@@ -204,9 +204,7 @@ public class PageDetailActivity extends BaseActivity<FragmentPageDetailBinding, 
             }
         });
         // 景区图片集合
-        viewModel.onClickScenicImgEvent.observe(this, new Observer<Void>()
-
-        {
+        viewModel.onClickScenicImgEvent.observe(this, new Observer<Void>() {
             @Override
             public void onChanged(@Nullable Void aVoid) {
                 startContainerActivity(PagePhotoFragment.class.getCanonicalName());

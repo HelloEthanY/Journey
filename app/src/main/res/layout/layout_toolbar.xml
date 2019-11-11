@@ -45,7 +45,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="?selectableItemBackground"
                     android:padding="15dp"
-                    android:src="@mipmap/ic_white_return"
+                    android:src="@{toolbarViewModel.leftIcon}"
                     android:visibility="@{toolbarViewModel.onShowFinish?View.VISIBLE:View.INVISIBLE}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     binding:onClickCommand="@{toolbarViewModel.onClickFinishCommand}" />

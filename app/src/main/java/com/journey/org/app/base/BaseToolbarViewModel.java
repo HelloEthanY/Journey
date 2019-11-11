@@ -27,6 +27,7 @@ public class BaseToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> 
     public BaseToolbarViewModel toolbarViewModel;
 
     public Drawable rightIcon;
+    public Drawable leftIcon;
 
     public BaseToolbarViewModel(@NonNull Application application) {
         this(application, null);
@@ -36,6 +37,7 @@ public class BaseToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> 
         super(application, model);
         toolbarViewModel = this;
         rightIcon = ContextCompat.getDrawable(application, R.mipmap.ic_round_menu);
+        leftIcon = ContextCompat.getDrawable(application, R.mipmap.ic_white_return);
     }
 
     // 菜单按钮点击事件回调
@@ -79,5 +81,9 @@ public class BaseToolbarViewModel<M extends BaseModel> extends BaseViewModel<M> 
     // 修改右边展示图标
     public void setRightIconMenu(Drawable drawable) {
         this.rightIcon = drawable;
+    }
+
+    public void setLeftIconMenu(Drawable drawable) {
+        this.leftIcon = drawable;
     }
 }

@@ -30,6 +30,7 @@ public class HomeMineFragment extends BaseLazyFragment<FragmentHomeMineBinding, 
     @Override
     protected void lazyLoadData() {
 
+
     }
 
     @Override
@@ -54,6 +55,6 @@ public class HomeMineFragment extends BaseLazyFragment<FragmentHomeMineBinding, 
     @Override
     public void initData() {
         super.initData();
-        viewModel.initToolbar();
+        viewModel.initToolbar(getContext());
     }
 }

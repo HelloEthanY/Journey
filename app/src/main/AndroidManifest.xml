@@ -24,7 +24,9 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 相机权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <!--热修复需要的权限-->
+    <!-- 外部存储读权限，调试工具加载本地补丁需要 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:name=".app.JourneyApplication"
         android:allowBackup="true"
@@ -35,6 +37,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <!--阿里云热修复-->
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="28137808" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="e8f5dc0445fa529c891cd774630c1cfd" />
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCPz4xL3DzeVpb3INyioeDXNFHFMSdGTX0TNmTTIf23UMmiTNeRQXA3JX6tCB+hfTfW2ConK3ZraiPIeFCf+WbQda54myH9Ugk9VzFUTQBsKRrleMhph3WR/IRrIhVqZ6fiWYKgMs+NVLGgh/OGq4S8SwGWai8I2RDtFLr3y7m59QIDAQAB" />
 
         <!-- 百度地图 -->
         <meta-data
