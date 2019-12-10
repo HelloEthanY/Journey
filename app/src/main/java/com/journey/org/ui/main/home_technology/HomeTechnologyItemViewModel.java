@@ -1,13 +1,10 @@
 package com.journey.org.ui.main.home_technology;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.journey.org.app.skyline.SkylineContainerActivity;
 import com.journey.org.ui.main.home_technology.page_bridge.PageBridgeActivity;
-import com.journey.org.ui.main.home_technology.page_skyline.PageSkylineFragment;
+import com.journey.org.ui.main.home_technology.pagezxing.PageZxingFragment;
 
-import me.goldze.mvvmhabit.base.ContainerActivity;
 import me.goldze.mvvmhabit.base.MultiItemViewModel;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
@@ -44,6 +41,9 @@ public class HomeTechnologyItemViewModel extends MultiItemViewModel<HomeTechnolo
 
                 case "android-js混合开发":
                     viewModel.startActivity(PageBridgeActivity.class);
+                    break;
+                case "android-zxing二维码":
+                    viewModel.startContainerActivity(PageZxingFragment.class.getCanonicalName());
                     break;
             }
         }

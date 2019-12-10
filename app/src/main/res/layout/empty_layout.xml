@@ -4,7 +4,9 @@
 
     <data>
 
-
+        <variable
+            name="viewModel"
+            type="me.goldze.mvvmhabit.base.BaseViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

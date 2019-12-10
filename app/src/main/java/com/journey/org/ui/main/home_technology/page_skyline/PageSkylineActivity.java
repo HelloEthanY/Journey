@@ -111,7 +111,7 @@ public class PageSkylineActivity extends BaseSkylineActivity<ActivityPageSkyline
     public void initData() {
         super.initData();
         mWebView = binding.webSkyline;
-        url = "http://192.168.17.128:8080/";
+        url = "http://192.168.17.129:8080/";
         mWebView.setDefaultHandler(new DefaultHandler());
         mWebView.setBackgroundColor(0);
         if (!TextUtils.isEmpty(url)) {

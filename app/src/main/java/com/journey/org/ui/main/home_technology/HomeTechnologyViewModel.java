@@ -80,6 +80,13 @@ public class HomeTechnologyViewModel extends BaseViewModel {
                 "测试使用BridgeWebView加载本地html和Android的共同使用开发");
         bridgeViewModel.multiItemType(TECHNOLOGY_BODY);
         items.add(bridgeViewModel);
+        // 二维码
+        MultiItemViewModel zxingViewModel = new HomeTechnologyItemViewModel(this,
+                "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=27495044,3539569886&fm=26&gp=0.jpg",
+                "android-zxing二维码",
+                "关于二维码的一些简单使用");
+        zxingViewModel.multiItemType(TECHNOLOGY_BODY);
+        items.add(zxingViewModel);
     }
 
     // 得到banner 的数据

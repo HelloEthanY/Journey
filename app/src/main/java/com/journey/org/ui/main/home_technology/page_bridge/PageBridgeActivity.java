@@ -49,9 +49,10 @@ public class PageBridgeActivity extends BaseActivity<ActivityPageBridgeBinding, 
     public void initData() {
         super.initData();
         mWebView = binding.bridgeWebView;
-        url = "file:///android_asset/web/android_js.html";
+       // url = "file:///android_asset/web/android_js.html";
+        url = "http://192.168.17.129:8080";
         mWebView.setDefaultHandler(new DefaultHandler());
-        mWebView.setBackgroundColor(0); //  设置背景为透明度
+        // mWebView.setBackgroundColor(0); //  设置背景为透明度
         if (!TextUtils.isEmpty(url)) {
             mWebView.loadUrl(url);
         }
@@ -76,7 +77,6 @@ public class PageBridgeActivity extends BaseActivity<ActivityPageBridgeBinding, 
             }
         });
         /********************************************结束*********************************************/
-
     }
 
     /********************************* 这里是注册了由js调Android 的方法*******************************/

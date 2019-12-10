@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.journey.org.BR;
@@ -14,16 +15,20 @@ import com.journey.org.R;
 import com.journey.org.app.base.BaseLazyFragment;
 import com.journey.org.data.home_page.HomePageBannerEntity;
 import com.journey.org.databinding.FragmentHomePageBinding;
+import com.journey.org.ui.main.MainActivity;
 import com.journey.org.ui.main.home_page.city.CitySelectActivity;
 import com.journey.org.ui.main.home_page.page_detail.PageDetailActivity;
 import com.journey.org.ui.web.WebActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.common.Constant;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.bus.RxBus;
 import me.goldze.mvvmhabit.utils.KLog;
+import me.goldze.mvvmhabit.utils.ToastUtils;
 
 /**
  * 旅游系统 - 首页
@@ -32,6 +37,8 @@ import me.goldze.mvvmhabit.utils.KLog;
  * @Date 2019/7/29
  */
 public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, HomePageViewModel> {
+
+    private final int REQUEST_CODE_SCAN = 0x003;
 
     @Override
     protected void lazyLoadData() {
@@ -116,6 +123,14 @@ public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, 
                         R.anim.popup_out_anim);
             }
         });
+        // 点击扫一扫
+        binding.mainHeadEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_SCAN);
+            }
+        });
     }
 
     @Override
@@ -126,6 +141,12 @@ public class HomePageFragment extends BaseLazyFragment<FragmentHomePageBinding, 
             String cityCode = data.getStringExtra("cityCode");
             if (viewModel != null) {
                 viewModel.cityNameField.set(cityName);
+            }
+        } else if (requestCode == REQUEST_CODE_SCAN && resultCode == Activity.RESULT_OK) { // // 扫描二维码/条码回传
+            if (data != null) {
+                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                // result.setText("扫描结果为：" + content);
+                ToastUtils.showShort("扫描的内容为：" + content);
             }
         }
     }

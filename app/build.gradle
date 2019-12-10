@@ -99,7 +99,8 @@ dependencies {
     // 混合开发框架
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
     // 阿里云热修复 hotfix
-   //  api 'com.aliyun.ams:alicloud-android-hotfix:3.2.9'
+    //  api 'com.aliyun.ams:alicloud-android-hotfix:3.2.9'
+    implementation project(':zxinglibrary')
 }
 //获取当前时间
 def static buildTime() {
